@@ -1,6 +1,10 @@
 # CapVis
 A Visulization Of Image Caption
 
+## notice：
+we didn't put the pretrained model in this repository, since its so huge
+Please download from "https://drive.google.com/open?id=1V2PQ7uGgEKv2Wp91p1CAoUBVivcvCLqg"
+
 ## Command
 # visualization
 python App.py
