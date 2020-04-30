@@ -83,6 +83,30 @@
 	<div class="content-wrapper">
 		<h2>Network</h2>
 		<p> Seee!!</p>
+
+
+    <div id="chart"></div>
+        <script type="module">
+        
+        // Load the Observable runtime and inspector.
+        import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+        
+        // Your notebook, compiled as an ES module.
+        import notebook from "https://api.observablehq.com/@d3/zoomable-sunburst.js?v=3";
+        
+        // Load the notebook, observing its cells with a default Inspector
+        // that simply renders the value of each cell into the provided DOM node.
+        // new Runtime().module(notebook, Inspector.into(document.body));
+        
+        new Runtime().module(notebook, name => {
+          if (name === "chart") {
+            return new Inspector(document.querySelector("#chart"));
+          }
+        });
+        
+        
+        
+        </script>        
 	</div>
 </section><!-- cd-section -->
 
@@ -106,30 +130,6 @@
 		<h2>Contact</h2>
 		<p> Thank you for your effort.</p>
 		<input type="txt"  rows="4" cols="60" placeholder="Please chime in here with your thoughts ^^/" name='username' style="height:38px;width:480px;">
-
-    <div class="slider-container">
-
-        <div class="">Input Layer Height</div>
-
-        <rzslider
-                id="input-height-step-slider"
-                rz-slider-model="vm.inputLayerHeightSlider.value"
-                rz-slider-options="vm.inputLayerHeightSlider.options"></rzslider>
-
-        <div class="">Hidden Layer Count</div>
-
-        <rzslider
-                id="hidden-count-step-slider"
-                rz-slider-model="vm.hiddenLayerCountSlider.value"
-                rz-slider-options="vm.hiddenLayerCountSlider.options"></rzslider>
-
-        <div class="">Output Layer Height</div>
-
-        <rzslider
-                id="output-height-step-slider"
-                rz-slider-model="vm.outputLayerHeightSlider.value"
-                rz-slider-options="vm.outputLayerHeightSlider.options"></rzslider>
-
         
     </div>
 
