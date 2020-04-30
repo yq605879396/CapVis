@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link href='https://fonts.googleapis.com/css?family=Sintony:400,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="../static/css/reset.css"> <!-- CSS reset -->
+	<link rel="stylesheet" href="../static/css/style.css"> <!-- Resource style -->
+	<script src="../static/js/modernizr.js"></script> <!-- Modernizr -->
+  	CapVis</title>
+
+
+
+
+  	<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+
+    <script data-semver="1.6.4" src="http://code.angularjs.org/1.6.4/angular.js" data-require="angular.js@1.6.x">
+    </script>
+
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.8.1/css/tachyons.min.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.4.0/rzslider.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.4.0/rzslider.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/css/nn.css">
+    <script src="../static/js/nn.js"></script>
+</head>
+<style>
+.button {
+    background-color: #8a6e91; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.button1 {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.button2:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+</style>
+<body>
+<nav class="cd-vertical-nav">
+	<ul>
+		<li><a href="#section1" class="active"><span class="label">Start</span></a></li>
+		<li><a href="#section2"><span class="label">Uplad</span></a></li>
+		<li><a href="#section3"><span class="label">Network</span></a></li>
+		<li><a href="#section4"><span class="label">Twist</span></a></li>
+		<!--li><a href="#section5"><span class="label">Contact</span></a></li-->
+	</ul>
+</nav><!-- .cd-vertical-nav -->
+
+<button class="cd-nav-trigger cd-image-replace">Open navigation<span aria-hidden="true"></span></button>
+
+<section id="section1" class="cd-section">
+	<div class="content-wrapper">
+		<h1>Welcom to CapVis<b>#1</b></h1>
+		<a href="#section2" class="cd-scroll-down cd-image-replace">scroll down</a>
+	</div>
+</section><!-- cd-section -->
+
+
+<section id="section2" class="cd-section">
+	<div class="content-wrapper">
+		<h2>Pick an Image</h2>
+		<p>Please upload an image.</p>
+	</div>
+</section><!-- cd-section -->
+
+<section id="section3" class="cd-section">
+	<div class="content-wrapper">
+		<h2>Network</h2>
+		<p> Seee!!</p>
+	</div>
+</section><!-- cd-section -->
+
+
+<!-- twist -->
+<section id="section4" class="cd-section">
+	<div class="content-wrapper">
+		<h2>Transform  the input</h2>
+		<p>Play with uploaded image.</p>
+		       <img src="{{ url_for('static', filename='./images/test.jpg',_t=val1)}}"  width="500" height="400" alt="image get lost TAT"/>
+		<button type="submit" class="button button2">flip</button>
+		<button type="submit" class="button button2">distort</button>
+
+	</div>
+</section><!-- cd-section -->
+
+
+<!-- feed back -->
+<section id="section5" class="cd-section">
+	<div class="content-wrapper">
+		<h2>Contact</h2>
+		<p> Thank you for your effort.</p>
+		<input type="txt"  rows="4" cols="60" placeholder="Please chime in here with your thoughts ^^/" name='username' style="height:38px;width:480px;">
+
+    <div class="slider-container">
+
+        <div class="">Input Layer Height</div>
+
+        <rzslider
+                id="input-height-step-slider"
+                rz-slider-model="vm.inputLayerHeightSlider.value"
+                rz-slider-options="vm.inputLayerHeightSlider.options"></rzslider>
+
+        <div class="">Hidden Layer Count</div>
+
+        <rzslider
+                id="hidden-count-step-slider"
+                rz-slider-model="vm.hiddenLayerCountSlider.value"
+                rz-slider-options="vm.hiddenLayerCountSlider.options"></rzslider>
+
+        <div class="">Output Layer Height</div>
+
+        <rzslider
+                id="output-height-step-slider"
+                rz-slider-model="vm.outputLayerHeightSlider.value"
+                rz-slider-options="vm.outputLayerHeightSlider.options"></rzslider>
+
+        
+    </div>
+
+    <div class="" id="neuralNet"></div>
+
+
+
+	</div>
+</section><!-- cd-section -->
+
+
+	
+<script src="../static/js/jquery-2.1.4.js"></script>
+<script src="../static/js/main.js"></script> <!-- Resource jQuery -->
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>predict</title>
+</head>
+<style>
+.button {
+    background-color: #2ab0b9; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.button1 {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.button2:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+</style>
+
+<body bgcolor="Snow">
+    <div style="text-align:center;color:#696969">
+        <br/><br/><br/>
+       <!--font face="宋体" size="+5">摇号结果查询</font><br/--> 
+       <img src="{{ url_for('static', filename='./images/test.jpg',_t=val1)}}"  width="500" height="400" alt="image get lost TAT"/>
+        <form action ='/search' method='post'>
+            <front size ="3">{{text}}</front>
+            <div id="bool" style="background-color:#2ab0b9;clear:both;text-align:center;"></div>
+            <button type="submit" class="button button2">good</button>
+            <button type="submit" class="button button2">bad</button>
+            <button type="submit" class="button button2">need similar image?</button>
+            <div id="bool" style="background-color:#2ab0b9;clear:both;text-align:center;"></div>
+            <!--front size ="3">How about caption quality?</front-->
+            <input type="txt"  rows="4" cols="60" placeholder="Please chime in here with your thoughts ^^/"
+                   name='username' style="height:38px;width:480px;">
+            <button type="submit" class="button button2">submit</button>
+        </form>
+
+
+        <br/><br/>
+            {% for num in nums %}
+                <tr>
+                <td>{{ num.date }}</td>
+                <td>{{ num.name }}</td>
+                <td>{{ num.code }}</td>
+                <br/>
+                </tr>
+            {% endfor %}
+            <h3>{{ tips }}</h3>
+    </div>
+</body>
+</html>
