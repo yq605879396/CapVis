@@ -10,10 +10,6 @@
 	<link rel="stylesheet" href="../static/css/style.css"> <!-- Resource style -->
 	<script src="../static/js/modernizr.js"></script> <!-- Modernizr -->
   	CapVis</title>
-
-
-
-
   	<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
 
     <script data-semver="1.6.4" src="http://code.angularjs.org/1.6.4/angular.js" data-require="angular.js@1.6.x">
@@ -76,6 +72,15 @@
 	<div class="content-wrapper">
 		<h2>Pick an Image</h2>
 		<p>Please upload an image.</p>
+
+
+        <!-- draw word cloud -->
+    <div id="word_cloud">
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+        <script src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js"></script>
+        <script src="../static/js/cloud.js"></script> 
+    </div>
+
 	</div>
 </section><!-- cd-section -->
 
@@ -85,6 +90,13 @@
 		<p> Seee!!</p>
 
 
+    <!-- draw char -- word freqency -->
+    <div id="words_f">
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="../static/js/word_frequency.js"></script> 
+    </div>
+
+    <!-- draw chart -->
     <div id="chart"></div>
         <script type="module">
         
@@ -103,11 +115,9 @@
             return new Inspector(document.querySelector("#chart"));
           }
         });
-        
-        
-        
         </script>        
 	</div>
+
 </section><!-- cd-section -->
 
 
@@ -116,9 +126,30 @@
 	<div class="content-wrapper">
 		<h2>Transform  the input</h2>
 		<p>Play with uploaded image.</p>
-		       <img src="{{ url_for('static', filename='./images/test.jpg',_t=val1)}}"  width="500" height="400" alt="image get lost TAT"/>
-		<button type="submit" class="button button2">flip</button>
-		<button type="submit" class="button button2">distort</button>
+		      <img src="{{ url_for('static', filename='./images/test.jpg',_t=val1)}}"  width="500" height="400" alt="image get lost TAT" id="pic_target" />
+		      <button type="submit" class="button button2">flip</button>
+		      <button type="submit" class="button button2">distort</button>
+
+          <!-- draw specil picture -->
+          <div id="picture_show"></div>
+              <script type="module">
+              
+              // Load the Observable runtime and inspector.
+              import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+              
+              // Your notebook, compiled as an ES module.
+              import notebook from "https://api.observablehq.com/@yq605879396/mona-lisa-histogram.js?v=3";
+              
+              // Load the notebook, observing its cells with a default Inspector
+              // that simply renders the value of each cell into the provided DOM node.
+              // new Runtime().module(notebook, Inspector.into(document.body));
+              new Runtime().module(notebook, name => {
+                if (name === "chart") {
+                  return new Inspector(document.querySelector("#picture_show"));
+                }
+              });
+              </script>        
+          </div>
 
 	</div>
 </section><!-- cd-section -->
@@ -139,7 +170,6 @@
 
 	</div>
 </section><!-- cd-section -->
-
 
 	
 <script src="../static/js/jquery-2.1.4.js"></script>

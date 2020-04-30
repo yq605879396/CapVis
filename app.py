@@ -117,11 +117,11 @@ def show(image_path, seq, alphas, rev_word_map,smooth=True):
 @app.route("/photo/<imageId>.jpg")
 def get_frame(imageId):
     # 图片上传保存的路径
-    with open(r'C:/Users/Administration/Desktop/photo_ceshi/photo/{}.jpg'.format(imageId), 'rb') as f:
+    with open(r'C:/Users/60587/Desktop/CapVis/static/images/test.jpg'.format(imageId), 'rb') as f:
         image = f.read()
         resp = Response(image, mimetype="image/jpg")
         return resp
- 
+
  
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
