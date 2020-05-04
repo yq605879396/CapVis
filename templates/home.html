@@ -85,13 +85,20 @@
     <datalist id="beam_list"></datalist>
     </div>
 
-    <div id="observablehq-b354108b"></div>
-        <script type="module">
-        import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
-        import define from "https://api.observablehq.com/@yq605879396/clickable-word-cloud.js?v=3";
-        const inspect = Inspector.into("#observablehq-b354108b");
-        (new Runtime).module(define, name => (name === "wordCloud") && inspect());
-        </script>
+    <!-- draw word cloud -->
+    <!--div id="word_cloud">
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+        <script src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js"></script>
+        <script src="../static/js/cloud.js"></script> 
+    </div-->
+
+<div id="observablehq-174c04f0"></div>
+<script type="module">
+import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+import define from "https://api.observablehq.com/@borowski-9ld/word-cloud.js?v=3";
+const inspect = Inspector.into("#observablehq-174c04f0");
+(new Runtime).module(define, name => (name === "result") && inspect());
+</script>
 
 	</div>
 </section><!-- cd-section -->
