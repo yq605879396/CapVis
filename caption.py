@@ -35,7 +35,7 @@ def CNN_features(encoder, image_path):
     #print("feature_size: %d" % enc_image_size)
     #print("encoder_dim: %d" % encoder_dim)
 
-    return encoder_out[0,:,:,:64]
+    return encoder_out[0,:,:,:16]
 
 def CNN_features_1(encoder, image_path):
     img = imread(image_path)
@@ -255,7 +255,6 @@ def test_photo(img, model='pretrained/BEST_checkpoint_flickr30k_5_cap_per_img_5_
     encoder.eval()
 
     features = CNN_features(encoder, img)
-    decoder_input = CNN_features_1(encoder, img)
 
     unloader = transforms.ToPILImage()
 
@@ -264,15 +263,6 @@ def test_photo(img, model='pretrained/BEST_checkpoint_flickr30k_5_cap_per_img_5_
         temp = temp.squeeze(0)
         temp = unloader(temp)
         temp.save("static/features/%s.jpg"%(str(i+1)))
-
-    features = features.detach().numpy()
-
-    imsaved = decoder_input.cpu().clone()
-    imsaved = imsaved.squeeze(0)
-    imsaved = unloader(imsaved)
-    imsaved.save("static/features/input.jpg")
-
-    decoder_input = decoder_input.detach().numpy()
 
     # Load word map (word2ix)
     with open(word_map, 'r') as j:
@@ -290,7 +280,7 @@ def test_photo(img, model='pretrained/BEST_checkpoint_flickr30k_5_cap_per_img_5_
     #return seq, rev_word_map
     sentence = []
     sentence += [rev_word_map[ind] for ind in seq]
-    '''
+
     image = Image.open(img)
     image = image.resize([14 * 24, 14 * 24], Image.LANCZOS)
     for i in range(len(sentence)):
@@ -309,51 +299,21 @@ def test_photo(img, model='pretrained/BEST_checkpoint_flickr30k_5_cap_per_img_5_
         plt.set_cmap(cm.Greys_r)
         plt.axis('off')
         plt.savefig('static/attention/applied_%s.jpg' % (str(i)))
+        plt.close()
     
     for i in range(len(sentence)):
         current_alpha = alphas[i, :]
         alpha = current_alpha.numpy()
-        plt.imshow(alpha, alpha=0.8)
+        plt.imshow(alpha, alpha=1)
         plt.set_cmap(cm.Greys_r)
         plt.axis('off')
         plt.savefig('static/attention/origin_%s.jpg' % (str(i)))
-    '''
-    sentence_str = ' '.join(item for item in sentence if item != '<start>' and item != '<end>')
-    #return sentence, features, decoder_input
+        plt.close()
+
+    
+    #sentence = ' '.join(item for item in sentence if item != '<start>' and item != '<end>')
+
     return sentence
-'''
-def CNN_output(img, model='pretrained/BEST_checkpoint_coco_5_cap_per_img_5_min_word_freq.pth.tar', word_map ='pretrained/WORDMAP_coco_5_cap_per_img_5_min_word_freq.json', beam_size = 5):
-    ## Load pre-trained model
-    checkpoint = torch.load(model, map_location=str(device))
-    decoder = checkpoint['decoder']
-    decoder = decoder.to(device)
-    decoder.eval()
-    encoder = checkpoint['encoder']
-    encoder = encoder.to(device)
-    encoder.eval()
-
-    features = CNN_features(encoder, img)
-    decoder_input = CNN_features_1(encoder, img)
-
-    unloader = transforms.ToPILImage()
-
-    for i in range(features.size(2)):
-        temp = features[:,:,i].cpu().clone()
-        temp = temp.squeeze(0)
-        temp = unloader(temp)
-        temp.save("static/features/%s.jpg"%(str(i+1)))
-
-    features = features.detach().numpy()
-
-    imsaved = decoder_input.cpu().clone()
-    imsaved = imsaved.squeeze(0)
-    imsaved = unloader(imsaved)
-    imsaved.save("static/features/input.jpg")
-
-    decoder_input = decoder_input.detach().numpy()
-
-    return features, decoder_input
-'''
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Show, Attend, and Tell - Tutorial - Generate Caption')

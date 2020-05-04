@@ -6,6 +6,95 @@ from flask import make_response
 import cv2 as cv
 import io
 import time
+import numpy as np
+import matplotlib.pyplot as plt
+Labels = np.loadtxt('./pretrained/labels_100')
+All_vec = np.loadtxt('./pretrained/All_vectors')
+Centers = np.loadtxt('./pretrained/center_100')
+test_vec = np.loadtxt('photo/test_photo_vec')
+f_caption = open('./pretrained/all_caption.csv', 'r')
+caption_lines = f_caption.readlines()
+for i in range(len(caption_lines)):
+    caption_lines[i] = caption_lines[i].strip('\n')
+
+def get_label(image_vector):
+    min_dis = float('Inf')
+    index = None
+    for i in range(len(Centers)):
+        dis = np.sum((image_vector - Centers[i])**2)
+        if dis < min_dis:
+            min_dis = dis
+            index = i
+    return index
+
+def get_top_images(index, image_vector, k=5):
+    result_index = []
+    for i in range(len(Labels)):
+        if Labels[i] == index:
+            result_index.append(i+1)
+    result_index_dis = []
+
+    for i in range(len(result_index)):
+        dis = np.sum((image_vector - All_vec[result_index[i]-1])**2)
+        result_index_dis.append(dis)
+    result_index_dis = np.array(result_index_dis)
+    sorted_index = result_index_dis.argsort()
+
+    result = []
+    for i in range(k):
+        result.append(result_index[sorted_index[i]])
+    return result
+
+def add_caption(image_list):
+    result = []
+    for i in range(len(image_list)):
+        result.append(caption_lines[image_list[i]])
+    return result
+
+def word_static(index):
+    result_index = []
+    for i in range(len(Labels)):
+        if Labels[i] == index:
+            result_index.append(i+1)
+    dic_num = {}
+    #not_consider = ['a', 'in', 'of', 'the', 'on']
+    #dic_ratio = {}
+    for i in range(len(result_index)):
+        cap_temp = caption_lines[result_index[i]]
+        words = cap_temp.split(' ')
+        for j in range(len(words)):
+            if words[j] in dic_num:
+                dic_num[words[j]] += 1
+            else:
+                dic_num[words[j]] = 1
+    total_words = sum(dic_num.values())
+    dic_num = sorted(dic_num.items(), key=lambda item:item[1], reverse=True)
+    dic_array = np.array(dic_num)
+
+    labels = []
+    X = []
+    for i in range(24):
+        labels.append(dic_array[i][0])
+        X.append(int(dic_array[i][1]))
+    labels.append('others')
+    temp = sum(X)
+    X.append(total_words-temp)
+    #labels = dic_array[:19, 0]
+    #X = dic_array[:19, 1]
+    #labels.append('others')
+    #X.append(total_words-np.sum(X))
+    #labels = np.append(labels, ['others'])
+    #temp = np.sum(X)
+    #X = np.append(X, [total_words-temp])
+    plt.figure(figsize=(10,10))
+    plt.pie(X, labels=labels)
+    plt.savefig('static/words/pie.jpg')
+    plt.close()
+    return dic_num, total_words, dic_array.shape[0]
+### Ended by Dongzi ###
+
+
+
 
 from datetime import timedelta
 
@@ -38,6 +127,59 @@ def return_img_stream(img_local_path):
     
 @app.route('/home/', methods=['POST', "GET"])
 def home():
+    if request.method == 'POST':
+        # 获取post过来的文件名称，从name=file参数中获取
+        global file_name 
+        file = request.files['file']
+        if file and allowed_file(file.filename):
+            print(file.filename)
+            # secure_filename方法会去掉文件名中的中文
+            file_name = secure_filename(file.filename)
+            basepath = os.path.dirname(__file__)  # 当前文件所在路径
+            img_path=os.path.join(basepath,app.config['UPLOAD_FOLDER'], file_name)
+            
+            ## New added by Dongzi:
+            #image_vector = get_vector(img_path)
+            test_index = file_name.split('.')[0][4:]
+            test_index = int(test_index)
+            image_vector = test_vec[test_index-1]
+            #print(test_index)
+            #print(image_vector)
+            image_label = get_label(image_vector)
+            image_list = get_top_images(image_label, image_vector, k=5)
+            caption_list = add_caption(image_list)
+            #print("The label of this image is: %d" % (image_label))
+            #print("The image_list is:", image_list)
+            #print(caption_list)
+            caption_words, total_words, catg_num = word_static(image_label)
+            print(caption_words)
+
+            for i in range(len(image_list)):
+                same_class_img_from_path = './pretrained/Flickr_Data/Images/' + str(image_list[i]) + '.jpg'
+                same_class_img_save_path = os.path.join(basepath, 'static/images',str(i)+'.jpg')
+                same_class_img = cv.imread(same_class_img_from_path)
+                cv.imwrite(same_class_img_save_path, same_class_img)
+            ## End by Dongzi
+
+
+
+            # 保存图片
+            file.save(img_path)
+            #figfile = io.BytesIO(open(img_path, 'rb').read())
+            #img = return_img_stream(img_path)
+            static_path = os.path.join(basepath, 'static/images','test.jpg')
+            print(static_path)
+            if(os.path.exists(static_path)):
+                os.remove(static_path)
+            img = cv.imread(os.path.join(app.config['UPLOAD_FOLDER'], file_name))
+            cv.imwrite( static_path,img)
+
+            seq= test_photo(img_path)
+            print(seq)
+            return render_template('main.html', val1=time.time(), text =seq, length = len(seq), cap_list = caption_list, cap_words = caption_words, words_num = total_words, words_cat = catg_num)
+        else:
+            #flash("wrong format, please uplead .jpg file", "warning")
+            return "wrong format, please uplead .jpg/.png/.jpeg file"
     return render_template("home.html")
 
 # 上传图片页面nc=upload_image, methods=["POST"])
@@ -54,6 +196,31 @@ def uploads():
             basepath = os.path.dirname(__file__)  # 当前文件所在路径
             img_path=os.path.join(basepath,app.config['UPLOAD_FOLDER'], file_name)
             
+
+            ## New added by Dongzi:
+            #image_vector = get_vector(img_path)
+            test_index = file_name.split('.')[0][4:]
+            test_index = int(test_index)
+            image_vector = test_vec[test_index-1]
+            #print(test_index)
+            #print(image_vector)
+            image_label = get_label(image_vector)
+            image_list = get_top_images(image_label, image_vector, k=5)
+            caption_list = add_caption(image_list)
+            #print("The label of this image is: %d" % (image_label))
+            #print("The image_list is:", image_list)
+            #print(caption_list)
+            caption_words, total_words, catg_num = word_static(image_label)
+            print(caption_words)
+
+            for i in range(len(image_list)):
+                same_class_img_from_path = '../pretrained/Flickr_Data/Images/' + str(image_list[i]) + '.jpg'
+                same_class_img_save_path = os.path.join(basepath, 'static/images',str(i)+'.jpg')
+                same_class_img = cv.imread(same_class_img_from_path)
+                cv.imwrite(same_class_img_save_path, same_class_img)
+            ## End by Dongzi
+
+
             # 保存图片
             file.save(img_path)
             #figfile = io.BytesIO(open(img_path, 'rb').read())
@@ -67,7 +234,7 @@ def uploads():
 
             seq= test_photo(img_path)
             print(seq)
-            return render_template('result.html', val1=time.time(), text =seq)
+            return render_template('result.html', val1=time.time(), text =seq, length = len(seq), cap_list = caption_list, cap_words = caption_words, words_num = total_words, words_cat = catg_num)
         else:
             #flash("wrong format, please uplead .jpg file", "warning")
             return "wrong format, please uplead .jpg/.png/.jpeg file"
