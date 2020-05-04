@@ -174,9 +174,9 @@ def home():
             img = cv.imread(os.path.join(app.config['UPLOAD_FOLDER'], file_name))
             cv.imwrite( static_path,img)
 
-            seq= test_photo(img_path)
+            seq, seq_clear= test_photo(img_path)
             print(seq)
-            return render_template('main.html', val1=time.time(), text =seq, length = len(seq), cap_list = caption_list, cap_words = caption_words, words_num = total_words, words_cat = catg_num)
+            return render_template('main.html', val1=time.time(), text =seq, text_clear=seq_clear, length = len(seq), cap_list = caption_list, cap_words = caption_words, words_num = total_words, words_cat = catg_num)
         else:
             #flash("wrong format, please uplead .jpg file", "warning")
             return "wrong format, please uplead .jpg/.png/.jpeg file"
@@ -232,9 +232,9 @@ def uploads():
             img = cv.imread(os.path.join(app.config['UPLOAD_FOLDER'], file_name))
             cv.imwrite( static_path,img)
 
-            seq= test_photo(img_path)
+            seq, seq_clear= test_photo(img_path)
             print(seq)
-            return render_template('result.html', val1=time.time(), text =seq, length = len(seq), cap_list = caption_list, cap_words = caption_words, words_num = total_words, words_cat = catg_num)
+            return render_template('result.html', val1=time.time(), text_clear = seq_clear, text = seq, length = len(seq), cap_list = caption_list, cap_words = caption_words, words_num = total_words, words_cat = catg_num)
         else:
             #flash("wrong format, please uplead .jpg file", "warning")
             return "wrong format, please uplead .jpg/.png/.jpeg file"

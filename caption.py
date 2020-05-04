@@ -311,9 +311,9 @@ def test_photo(img, model='pretrained/BEST_checkpoint_flickr30k_5_cap_per_img_5_
         plt.close()
 
     
-    #sentence = ' '.join(item for item in sentence if item != '<start>' and item != '<end>')
+    sentence_clear = ' '.join(item for item in sentence if item != '<start>' and item != '<end>')
 
-    return sentence
+    return sentence, sentence_clear
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Show, Attend, and Tell - Tutorial - Generate Caption')

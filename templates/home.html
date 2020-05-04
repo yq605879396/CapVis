@@ -54,8 +54,8 @@
 	<ul>
 		<li><a href="#section1" class="active"><span class="label">Start</span></a></li>
 		<li><a href="#section2"><span class="label">Uplad</span></a></li>
-		<li><a href="#section3"><span class="label">Network</span></a></li>
-		<li><a href="#section4"><span class="label">Twist</span></a></li>
+		<li><a href="#section3"><span class="label">Test</span></a></li-->
+		<li><a href="#section4"><span class="label">FeedBack</span></a></li-->
 		<!--li><a href="#section5"><span class="label">Contact</span></a></li-->
 	</ul>
 </nav><!-- .cd-vertical-nav -->
@@ -73,18 +73,17 @@
 <section id="section2" class="cd-section">
 	<div class="content-wrapper">
 		<h2>Pick an Image</h2>
-		<p>Please upload an image.</p>
+		<p>Please upload an image.</p></br></br></br>
     <form action="" method=post enctype=multipart/form-data>
     <input class="button button2" type=file name=file>
-    <input class="button button2" type=submit value=Upload>
-        
-    <!-- New for beamsize -->
+
+
     <div class="button button2">
-    <a>Beamsize: </a>
-    <input id="beam" type="text" list="beam_list" name=BEAM>
+    <input placeholder="Beamsize"id="beam" type="text" list="beam_list" name=BEAM>
     <datalist id="beam_list"></datalist>
     </div>
 
+    <input class="button button2" type=submit value=Upload></br></br></br></br>
     <!-- draw word cloud -->
     <!--div id="word_cloud">
         <script src="https://d3js.org/d3.v3.min.js"></script>
@@ -92,66 +91,26 @@
         <script src="../static/js/cloud.js"></script> 
     </div-->
 
-<div id="observablehq-174c04f0"></div>
-<script type="module">
-import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
-import define from "https://api.observablehq.com/@borowski-9ld/word-cloud.js?v=3";
-const inspect = Inspector.into("#observablehq-174c04f0");
-(new Runtime).module(define, name => (name === "result") && inspect());
-</script>
+    <!-- draw word cloud -->
+    <div id="observablehq-174c04f0"></div>
+    <script type="module">
+    import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+    import define from "https://api.observablehq.com/@borowski-9ld/word-cloud.js?v=3";
+    const inspect = Inspector.into("#observablehq-174c04f0");
+    (new Runtime).module(define, name => (name === "result") && inspect());
+    </script>
 
 	</div>
 </section><!-- cd-section -->
 
 <section id="section3" class="cd-section">
 	<div class="content-wrapper">
-		<h2>Network</h2>
-		<p> Seee!!</p>
+		<h2>This is for test</h2>
+		<p> It will be removed</p>
 
 
-    <!-- draw char -- word freqency -->
-    <div id="words_f">
-        <script src="https://d3js.org/d3.v4.min.js"></script>
-        <script src="../static/js/word_frequency.js"></script> 
-    </div>
-
-    <!-- draw chart -->
-    <div id="chart"></div>
-        <script type="module">
-        
-        // Load the Observable runtime and inspector.
-        import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
-        
-        // Your notebook, compiled as an ES module.
-        import notebook from "https://api.observablehq.com/@d3/zoomable-sunburst.js?v=3";
-        
-        // Load the notebook, observing its cells with a default Inspector
-        // that simply renders the value of each cell into the provided DOM node.
-        // new Runtime().module(notebook, Inspector.into(document.body));
-        
-        new Runtime().module(notebook, name => {
-          if (name === "chart") {
-            return new Inspector(document.querySelector("#chart"));
-          }
-        });
-        </script> 
-
-
-
-</section><!-- cd-section -->
-
-
-<!-- twist -->
-<section id="section4" class="cd-section">
-	<div class="content-wrapper">
-		<h2>Transform  the input</h2>
-		<p>Play with uploaded image.</p>
-		      <img src="{{ url_for('static', filename='./images/test.jpg',_t=val1)}}"  width="500" height="400" alt="image get lost TAT" id="pic_target" />
-		      <button type="submit" class="button button2">flip</button>
-		      <button type="submit" class="button button2">distort</button>
-
-          <!-- draw specil picture -->
-              <div id="chart"></div>
+        <!-- draw specil picture -->
+        <div id="chart"></div>
         <script type="module">
         
         // Load the Observable runtime and inspector.
@@ -170,57 +129,20 @@ const inspect = Inspector.into("#observablehq-174c04f0");
           }
         });
         </script> 
-
-
-
-        <div id="observablehq-148a292d"></div>
-<script type="module">
-import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
-import define from "https://api.observablehq.com/@yq605879396/input-draw-a-box-on-image/2.js?v=3";
-const inspect = Inspector.into("#observablehq-148a292d");
-(new Runtime).module(define, name => (name === "viewof a") && inspect());
-</script>
-
-        
-
-        <!--div id="test_3"></div>
-        <script type="module">
-        
-        // Load the Observable runtime and inspector.
-        import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
-        
-        // Your notebook, compiled as an ES module.
-        import notebook from "https://api.observablehq.com/@yq605879396/mona-lisa-histogram/3.js?v=3";
-        
-        // Load the notebook, observing its cells with a default Inspector
-        // that simply renders the value of each cell into the provided DOM node.
-        // new Runtime().module(notebook, Inspector.into(document.body));
-        
-        new Runtime().module(notebook, name => {
-          if (name === "viewof a") {
-            return new Inspector(document.querySelector("#test_3"));
-          }
-        });
-        </script--> 
-
-	</div>
 </section><!-- cd-section -->
+        
+
 
 
 <!-- feed back -->
-<section id="section5" class="cd-section">
+<section id="section4" class="cd-section">
 	<div class="content-wrapper">
 		<h2>Contact</h2>
 		<p> Thank you for your effort.</p>
-		<input type="txt"  rows="4" cols="60" placeholder="Please chime in here with your thoughts ^^/" name='username' style="height:38px;width:480px;">
-        
+		<input type="txt"  rows="4" cols="60" placeholder="Please chime in here with your thoughts ^^/" name='username' style="height:38px;width:480px;">        
     </div>
 
-    <div class="" id="neuralNet"></div>
 
-
-
-	</div>
 </section><!-- cd-section -->
 
 	
