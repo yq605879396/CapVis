@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href='https://fonts.googleapis.com/css?family=Sintony:400,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="../static/css/reset.css"> <!-- CSS reset -->
+    <link rel="stylesheet" href="../static/css/style.css"> <!-- Resource style -->
+    <script src="../static/js/modernizr.js"></script> <!-- Modernizr -->
+    CapVis</title>
+    <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+
+    <script data-semver="1.6.4" src="http://code.angularjs.org/1.6.4/angular.js" data-require="angular.js@1.6.x">
+    </script>
+
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.8.1/css/tachyons.min.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.4.0/rzslider.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.4.0/rzslider.min.css"
+          rel="stylesheet">
+
+
+</head>
+
+<style>
+.button {
+    background-color: #8a6e91; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.word {
+    background-color: #87cf7c;
+    width: 100px;
+    height: 40px;
+    color: black;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: -3px;
+    font-style: arial;
+}
+.word1 {
+    background-color: #e4e730;
+    width: 220px;
+    height: 70px;
+    color: black;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: -3px;
+    font-style: arial;
+}
+
+.button1 {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.button2:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+</style>
+<body>
+<nav class="cd-vertical-nav">
+    <ul>
+        <li><a href="#section1" class="active"><span class="label">Start</span></a></li>
+        <li><a href="#section2"><span class="label">Uplad</span></a></li>
+        <li><a href="#section3"><span class="label">Network</span></a></li>
+        <li><a href="#section4"><span class="label">Twist</span></a></li>
+        <!--li><a href="#section5"><span class="label">Contact</span></a></li-->
+    </ul>
+</nav><!-- .cd-vertical-nav -->
+
+<button class="cd-nav-trigger cd-image-replace">Open navigation<span aria-hidden="true"></span></button>
+
+<!--section id="section1" class="cd-section">
+    <div class="content-wrapper">
+        <h1>Welcom to CapVis<b>#1</b></h1>
+        <a href="#section2" class="cd-scroll-down cd-image-replace">scroll down</a>
+    </div>
+</section-->
+<!-- cd-section -->
+
+
+<section id="section2" class="cd-section">
+    <div class="content-wrapper">
+
+
+        <h2>Pick an Image</h2>
+        <p>Please upload an image.</p>
+        <img src="{{ url_for('static', filename='./images/test.jpg',_t=val1)}}"  width="500" height="400" alt="image get lost TAT"/>
+        <form action ='/search' method='post'>
+            <front size ="3">{{text}}</front>
+            <div id="bool" style="background-color:#2ab0b9;clear:both;text-align:center;"></div>
+            <button type="submit" class="button button2">good</button>
+            <button type="submit" class="button button2">bad</button>
+            <button type="submit" class="button button2">need similar image?</button>
+            <div id="bool" style="background-color:#2ab0b9;clear:both;text-align:center;"></div>
+            <!--front size ="3">How about caption quality?</front-->
+
+        </form>
+
+
+        <!-- draw word cloud -->
+        <!--div id="word_cloud">
+            <script src="https://d3js.org/d3.v3.min.js"></script>
+            <script src="https://rawgit.com/jasondavies/d3-cloud/master/build/  d3.layout.cloud.js"></script>
+            <script src="../static/js/cloud.js"></script> 
+        </div-->
+        <div id="observablehq-b354108b"></div>
+            <script type="module">
+            import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+            import define from "https://api.observablehq.com/@yq605879396/clickable-word-cloud.js?v=3";
+            const inspect = Inspector.into("#observablehq-b354108b");
+            (new Runtime).module(define, name => (name === "wordCloud") && inspect());
+            </script>
+
+
+
+    <button onclick="show_similar('CNN_vis')" class="button button2">Vis CNN</button>
+       <img src="{{ url_for('static', filename='./images/test.jpg',_t=val1)}}"  width="500" height="500" alt="image get lost TAT"/>
+       <button onclick="show_similar('RNN_vis')" class="button button2">Vis RNN</button>
+       <br/>
+        
+            <!--<front size ="3">{{text}}</front>-->
+            <div id="bool" style="background-color:#2ab0b9;clear:both;text-align:center;"></div>
+
+            <div id="CNN_vis" style='display:none'>
+            <div id="imgbox"></div>
+            </div>
+
+            <div id="RNN_vis" style='display:none'>
+            <div id="attention1"></div>
+            <div id="attention2"></div>
+            <div>
+                {% for i in range(length) %}
+                <button class="word"><a href="www.google.com">{{text[i]}}</a></button>
+                {% endfor %}
+            </div>
+            </div>
+            
+            
+            <!--
+            <form action ='/search' method='post'>
+            <button type="submit" class="button button2">good</button>
+            <button type="submit" class="button button2">bad</button>
+            </form>
+            -->
+
+            <!--New Added by Dongzi-->
+            <br/>
+            <button onclick="show_similar('similar')" class="button button2">Show similar images</button>
+            <button onclick="show_caption('similar_cap')" class="button button2">Show corresponding caption</button>
+            <div id="bool" style="background-color:#2ab0b9;clear:both;text-align:center;"></div>
+
+            <!--New Added by Dongzi-->
+            <div id="similar"></div>
+            <div id='similar_cap' style='display:none'>
+                {% for item in cap_list %}
+                <textarea class="word1">{{item}}</textarea>
+                {% endfor %}
+            </div>
+            <br/>
+            <button onclick="show_words('word_static')" class="button button2">Show num distribution of used words</button>
+            <button onclick="show_pie('word_pie')" class="button button2">Show pie distribution of used words</button>
+            <div id="bool" style="background-color:#2ab0b9;clear:both;text-align:center;"></div>
+            <div id='word_static' style='display:none'>
+                <br/>
+                <front size = "10">The number of total used words is {{words_num}}, and the category is {{words_cat}}.</front>
+                <br/>
+                <front size = "3">{{cap_words}}</front>
+            </div>
+            <div id='word_pie' style='display:none'>
+                <br/>
+                <front size = "10">The number of total used words is {{words_num}}, and the category is {{words_cat}}.</front>
+                <br/><br/>
+                <img src="/static/words/pie.jpg"  width="750" height="750" alt="image get lost TAT"/>
+            </div>
+
+            <!--front size ="3">How about caption quality?</front-->
+            <br/><br/>
+            <input type="txt"  rows="4" cols="60" placeholder="Please chime in here with your thoughts ^^/"
+                   name='username' style="height:38px;width:480px;">
+            <button type="submit" class="button button2">submit</button>
+
+    </div>
+
+</section><!-- cd-section -->
+
+<section id="section3" class="cd-section">
+    <div class="content-wrapper">
+        <h2>Network</h2>
+        <p> Seee!!</p>
+
+
+    <!-- draw char -- word freqency -->
+    <div id="words_f">
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="../static/js/word_frequency.js"></script> 
+    </div>
+
+    <!-- draw chart -->
+    <div id="chart"></div>
+        <script type="module">
+        
+        // Load the Observable runtime and inspector.
+        import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+        
+        // Your notebook, compiled as an ES module.
+        import notebook from "https://api.observablehq.com/@d3/zoomable-sunburst.js?v=3";
+        
+        // Load the notebook, observing its cells with a default Inspector
+        // that simply renders the value of each cell into the provided DOM node.
+        // new Runtime().module(notebook, Inspector.into(document.body));
+        
+        new Runtime().module(notebook, name => {
+          if (name === "chart") {
+            return new Inspector(document.querySelector("#chart"));
+          }
+        });
+        </script>        
+    </div>
+
+            <div id="picture_show"></div>
+              <script type="module">
+              
+              // Load the Observable runtime and inspector.
+              import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+              
+              // Your notebook, compiled as an ES module.
+              import notebook from "https://api.observablehq.com/@yq605879396/mona-lisa-histogram.js?v=3";
+              
+              // Load the notebook, observing its cells with a default Inspector
+              // that simply renders the value of each cell into the provided DOM node.
+              // new Runtime().module(notebook, Inspector.into(document.body));
+              new Runtime().module(notebook, name => {
+                if (name === "chart") {
+                  return new Inspector(document.querySelector("#picture_show"));
+                }
+              });
+              </script>        
+          </div>
+
+          <div id="observablehq-a056677a"></div>
+              <script type="module">
+              import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+              import define from "https://api.observablehq.com/@yq605879396/mona-lisa-histogram.js?v=3";
+              const inspect = Inspector.into("#observablehq-a056677a");
+              (new Runtime).module(define, name => (name === "chart") && inspect());
+              </script>
+
+</section><!-- cd-section -->
+
+
+<!-- twist -->
+<section id="section4" class="cd-section">
+    <div class="content-wrapper">
+        <h2>Transform  the input</h2>
+        <p>Play with uploaded image.</p>
+              <img src="{{ url_for('static', filename='./images/test.jpg',_t=val1)}}"  width="500" height="400" alt="image get lost TAT" id="pic_target" />
+              <button type="submit" class="button button2">flip</button>
+              <button type="submit" class="button button2">distort</button>
+          <!-- draw specil picture -->
+          <div id="picture_show"></div>
+              <div id="chart"></div>
+        <script type="module">
+        
+        // Load the Observable runtime and inspector.
+        import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+        
+        // Your notebook, compiled as an ES module.
+        import notebook from "https://api.observablehq.com/@yq605879396/mona-lisa-histogram/3.js?v=3";
+        
+        // Load the notebook, observing its cells with a default Inspector
+        // that simply renders the value of each cell into the provided DOM node.
+        // new Runtime().module(notebook, Inspector.into(document.body));
+        
+        new Runtime().module(notebook, name => {
+          if (name === "chart") {
+            return new Inspector(document.querySelector("#chart"));
+          }
+        });
+        </script>     
+          </div>
+
+
+
+<!-- not good, only appear monalisa-->
+<div id="observablehq-05c97353"></div>
+<script type="module">
+import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+import define from "https://api.observablehq.com/@yq605879396/mona-lisa-histogram/3.js?v=3";
+const inspect = Inspector.into("#observablehq-05c97353");
+(new Runtime).module(define, name => (name === "chart") && inspect());
+</script>
+
+
+
+    </div>
+</section><!-- cd-section -->
+
+
+<!-- feed back -->
+<section id="section5" class="cd-section">
+    <div class="content-wrapper">
+        <h2>Contact</h2>
+        <p> Thank you for your effort.</p>
+        <input type="txt"  rows="4" cols="60" placeholder="Please chime in here with your thoughts ^^/" name='username' style="height:38px;width:480px;">
+        
+    </div>
+
+    <div class="" id="neuralNet"></div>
+
+
+
+    </div>
+</section><!-- cd-section -->
+
+    
+<script src="../static/js/jquery-2.1.4.js"></script>
+<script src="../static/js/main.js"></script> <!-- Resource jQuery -->
+</body>
+</html>
+
+
+
+<!-- dongzi qu -->
+<script type="text/javascript">
+var html = "";
+var temp1 = "/static/features/";
+var temp2 = ".jpg";
+
+for (var i=1;i<3;i++){
+    for (var j=1;j<9;j++){
+        var temp3 = (i-1)*8 + j;
+        html+='<img src="'+temp1+temp3+temp2+'" width="80" height="80" alt="image get lost TAT"/>';
+        html += '<a>  </a>';
+    }
+    html += '<br/>';
+}
+
+document.getElementById("imgbox").innerHTML=html;
+</script>
+
+
+<script type="text/javascript">
+var html = "";
+var temp1 = "/static/attention/applied_";
+var temp4 = "/static/attention/origin_";
+var temp2 = ".jpg";
+
+var len = {{length}};
+//var width = window.screen.width;
+//var width_each = width/len;
+
+for (var i=0;i<len;i++){
+    var temp3 = i;
+    html += '<img src="'+temp4+temp3+temp2+'" width="100" alt="image get lost TAT"/>';
+    //html += '<font size ="3">' + 'hahaha' + '</font>';
+    //html += '<img src="'+temp1+temp3+temp2+'" width="300" alt="image get lost TAT"/>';
+    //html += '<br/>';
+}
+
+html += '<br/>';
+
+document.getElementById("attention1").innerHTML=html;
+</script>
+
+
+<script type="text/javascript">
+var html = "";
+var temp1 = "/static/attention/applied_";
+var temp4 = "/static/attention/origin_";
+var temp2 = ".jpg";
+    
+var len = {{length}};
+
+//var single_word = '{{ text[0] }}';
+//html += '<font size="3">' + single_word + '</font>';
+//var all_word = '{{text}}';
+//html += '<font size="3">' + len + '</font>';
+//html += '</br>';
+/*
+for (var i=0;i<len;i++){
+    //var single_word = all_word[i];
+    var single_word = '{{ text['+i+'] }}';
+    html += '<font size="3">' + single_word + '</font>';
+}
+html += '<br/>';
+*/
+
+for (var i=0;i<len;i++){
+    var temp3 = i;
+    //html += '<img src="'+temp4+temp3+temp2+'" width="300" alt="image get lost TAT"/>';
+    //html += '<font size ="3">' + 'hahaha' + '</font>';
+    html += '<img src="'+temp1+temp3+temp2+'" width="100" alt="image get lost TAT"/>';
+    //html += '<br/>';
+}
+html += '<br/>';
+
+document.getElementById("attention2").innerHTML=html;
+</script>
+
+
+<script type="text/javascript">
+var html = "";
+var temp1 = "/static/images/";
+var temp2 = ".jpg"
+
+for (var i=0;i<5;i++){
+    html += '<img src="' + temp1+i+temp2+'" width="220" height="220" alt="image get lost TAT"/>';
+    html += '<a>  </a>';
+}
+html += '<br/>';
+
+document.getElementById("similar").innerHTML=html;
+document.getElementById("similar").style.display = 'none';
+</script>
+
+
+<script type="text/javascript">
+function show_similar(id){
+    if (document.getElementById(id).style.display == 'none') {
+        document.getElementById(id).style.display = 'block';
+    }
+    else if (document.getElementById(id).style.display == 'block') {
+        document.getElementById(id).style.display = 'none';
+    }
+}
+function show_caption(id){
+    if (document.getElementById(id).style.display == 'none') {
+        document.getElementById(id).style.display = 'block';
+    }
+    else if (document.getElementById(id).style.display == 'block') {
+        document.getElementById(id).style.display = 'none';
+    }
+}
+function show_words(id){
+    if (document.getElementById(id).style.display == 'none') {
+        document.getElementById(id).style.display = 'block';
+    }
+    else if (document.getElementById(id).style.display == 'block') {
+        document.getElementById(id).style.display = 'none';
+    }
+}
+function show_pie(id){
+    if (document.getElementById(id).style.display == 'none') {
+        document.getElementById(id).style.display = 'block';
+    }
+    else if (document.getElementById(id).style.display == 'block') {
+        document.getElementById(id).style.display = 'none';
+    }
+}
+</script>

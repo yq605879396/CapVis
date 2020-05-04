@@ -20,6 +20,31 @@
     transition-duration: 0.4s;
 }
 
+.word {
+    background-color: #87cf7c;
+    width: 100px;
+    height: 40px;
+    color: black;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: -3px;
+    font-style: arial;
+}
+.word1 {
+    background-color: #e4e730;
+    width: 220px;
+    height: 70px;
+    color: black;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: -3px;
+    font-style: arial;
+}
+
 .button1 {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
@@ -31,33 +56,213 @@
 
 <body bgcolor="Snow">
     <div style="text-align:center;color:#696969">
-        <br/><br/><br/>
+        <h1>Welcome To <a style="color:red;">CapVis</a></h1>
        <!--font face="宋体" size="+5">摇号结果查询</font><br/--> 
-       <img src="{{ url_for('static', filename='./images/test.jpg',_t=val1)}}"  width="500" height="400" alt="image get lost TAT"/>
-        <form action ='/search' method='post'>
-            <front size ="3">{{text}}</front>
+
+       <!--
+       <img src="/static/features/input.jpg" width="1200" alt="image get lost TAT"/>
+
+       <div id="imgbox"></div>
+
+       -->
+
+       <button onclick="show_similar('CNN_vis')" class="button button2">Vis CNN</button>
+       <img src="{{ url_for('static', filename='./images/test.jpg',_t=val1)}}"  width="500" height="500" alt="image get lost TAT"/>
+       <button onclick="show_similar('RNN_vis')" class="button button2">Vis RNN</button>
+       <br/>
+        
+            <!--<front size ="3">{{text}}</front>-->
             <div id="bool" style="background-color:#2ab0b9;clear:both;text-align:center;"></div>
+
+            <div id="CNN_vis" style='display:none'>
+            <div id="imgbox"></div>
+            </div>
+
+            <div id="RNN_vis" style='display:none'>
+            <div id="attention1"></div>
+            <div id="attention2"></div>
+            <div>
+                {% for i in range(length) %}
+                <button class="word"><a href="www.google.com">{{text[i]}}</a></button>
+                {% endfor %}
+            </div>
+            </div>
+            
+            
+            <!--
+            <form action ='/search' method='post'>
             <button type="submit" class="button button2">good</button>
             <button type="submit" class="button button2">bad</button>
-            <button type="submit" class="button button2">need similar image?</button>
+            </form>
+            -->
+
+            <!--New Added by Dongzi-->
+            <br/>
+            <button onclick="show_similar('similar')" class="button button2">Show similar images</button>
+            <button onclick="show_caption('similar_cap')" class="button button2">Show corresponding caption</button>
             <div id="bool" style="background-color:#2ab0b9;clear:both;text-align:center;"></div>
+
+            <!--New Added by Dongzi-->
+            <div id="similar"></div>
+            <div id='similar_cap' style='display:none'>
+                {% for item in cap_list %}
+                <textarea class="word1">{{item}}</textarea>
+                {% endfor %}
+            </div>
+            <br/>
+            <button onclick="show_words('word_static')" class="button button2">Show num distribution of used words</button>
+            <button onclick="show_pie('word_pie')" class="button button2">Show pie distribution of used words</button>
+            <div id="bool" style="background-color:#2ab0b9;clear:both;text-align:center;"></div>
+            <div id='word_static' style='display:none'>
+                <br/>
+                <front size = "10">The number of total used words is {{words_num}}, and the category is {{words_cat}}.</front>
+                <br/>
+                <front size = "3">{{cap_words}}</front>
+            </div>
+            <div id='word_pie' style='display:none'>
+                <br/>
+                <front size = "10">The number of total used words is {{words_num}}, and the category is {{words_cat}}.</front>
+                <br/><br/>
+                <img src="/static/words/pie.jpg"  width="750" height="750" alt="image get lost TAT"/>
+            </div>
+
             <!--front size ="3">How about caption quality?</front-->
+            <br/><br/>
             <input type="txt"  rows="4" cols="60" placeholder="Please chime in here with your thoughts ^^/"
                    name='username' style="height:38px;width:480px;">
             <button type="submit" class="button button2">submit</button>
-        </form>
-
-
-        <br/><br/>
-            {% for num in nums %}
-                <tr>
-                <td>{{ num.date }}</td>
-                <td>{{ num.name }}</td>
-                <td>{{ num.code }}</td>
-                <br/>
-                </tr>
-            {% endfor %}
-            <h3>{{ tips }}</h3>
+        
     </div>
 </body>
+
+
+<script type="text/javascript">
+var html = "";
+var temp1 = "/static/features/";
+var temp2 = ".jpg";
+
+for (var i=1;i<3;i++){
+    for (var j=1;j<9;j++){
+        var temp3 = (i-1)*8 + j;
+        html+='<img src="'+temp1+temp3+temp2+'" width="80" height="80" alt="image get lost TAT"/>';
+        html += '<a>  </a>';
+    }
+    html += '<br/>';
+}
+
+document.getElementById("imgbox").innerHTML=html;
+</script>
+
+
+<script type="text/javascript">
+var html = "";
+var temp1 = "/static/attention/applied_";
+var temp4 = "/static/attention/origin_";
+var temp2 = ".jpg";
+
+var len = {{length}};
+//var width = window.screen.width;
+//var width_each = width/len;
+
+for (var i=0;i<len;i++){
+    var temp3 = i;
+    html += '<img src="'+temp4+temp3+temp2+'" width="100" alt="image get lost TAT"/>';
+    //html += '<font size ="3">' + 'hahaha' + '</font>';
+    //html += '<img src="'+temp1+temp3+temp2+'" width="300" alt="image get lost TAT"/>';
+    //html += '<br/>';
+}
+
+html += '<br/>';
+
+document.getElementById("attention1").innerHTML=html;
+</script>
+
+
+<script type="text/javascript">
+var html = "";
+var temp1 = "/static/attention/applied_";
+var temp4 = "/static/attention/origin_";
+var temp2 = ".jpg";
+    
+var len = {{length}};
+
+//var single_word = '{{ text[0] }}';
+//html += '<font size="3">' + single_word + '</font>';
+//var all_word = '{{text}}';
+//html += '<font size="3">' + len + '</font>';
+//html += '</br>';
+/*
+for (var i=0;i<len;i++){
+    //var single_word = all_word[i];
+    var single_word = '{{ text['+i+'] }}';
+    html += '<font size="3">' + single_word + '</font>';
+}
+html += '<br/>';
+*/
+
+for (var i=0;i<len;i++){
+    var temp3 = i;
+    //html += '<img src="'+temp4+temp3+temp2+'" width="300" alt="image get lost TAT"/>';
+    //html += '<font size ="3">' + 'hahaha' + '</font>';
+    html += '<img src="'+temp1+temp3+temp2+'" width="100" alt="image get lost TAT"/>';
+    //html += '<br/>';
+}
+html += '<br/>';
+
+document.getElementById("attention2").innerHTML=html;
+</script>
+
+
+<script type="text/javascript">
+var html = "";
+var temp1 = "/static/images/";
+var temp2 = ".jpg"
+
+for (var i=0;i<5;i++){
+    html += '<img src="' + temp1+i+temp2+'" width="220" height="220" alt="image get lost TAT"/>';
+    html += '<a>  </a>';
+}
+html += '<br/>';
+
+document.getElementById("similar").innerHTML=html;
+document.getElementById("similar").style.display = 'none';
+</script>
+
+
+<script type="text/javascript">
+function show_similar(id){
+    if (document.getElementById(id).style.display == 'none') {
+        document.getElementById(id).style.display = 'block';
+    }
+    else if (document.getElementById(id).style.display == 'block') {
+        document.getElementById(id).style.display = 'none';
+    }
+}
+function show_caption(id){
+    if (document.getElementById(id).style.display == 'none') {
+        document.getElementById(id).style.display = 'block';
+    }
+    else if (document.getElementById(id).style.display == 'block') {
+        document.getElementById(id).style.display = 'none';
+    }
+}
+function show_words(id){
+    if (document.getElementById(id).style.display == 'none') {
+        document.getElementById(id).style.display = 'block';
+    }
+    else if (document.getElementById(id).style.display == 'block') {
+        document.getElementById(id).style.display = 'none';
+    }
+}
+function show_pie(id){
+    if (document.getElementById(id).style.display == 'none') {
+        document.getElementById(id).style.display = 'block';
+    }
+    else if (document.getElementById(id).style.display == 'block') {
+        document.getElementById(id).style.display = 'none';
+    }
+}
+</script>
+
+
 </html>

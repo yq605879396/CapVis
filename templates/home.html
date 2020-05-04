@@ -24,9 +24,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.4.0/rzslider.min.css"
           rel="stylesheet">
 
-    <link rel="stylesheet" href="../static/css/nn.css">
-    <script src="../static/js/nn.js"></script>
+
 </head>
+
 <style>
 .button {
     background-color: #8a6e91; /* Green */
@@ -47,6 +47,8 @@
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
 </style>
+
+
 <body>
 <nav class="cd-vertical-nav">
 	<ul>
@@ -72,14 +74,24 @@
 	<div class="content-wrapper">
 		<h2>Pick an Image</h2>
 		<p>Please upload an image.</p>
-
-
-        <!-- draw word cloud -->
-    <div id="word_cloud">
-        <script src="https://d3js.org/d3.v3.min.js"></script>
-        <script src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js"></script>
-        <script src="../static/js/cloud.js"></script> 
+    <form action="" method=post enctype=multipart/form-data>
+    <input class="button button2" type=file name=file>
+    <input class="button button2" type=submit value=Upload>
+        
+    <!-- New for beamsize -->
+    <div class="button button2">
+    <a>Beamsize: </a>
+    <input id="beam" type="text" list="beam_list" name=BEAM>
+    <datalist id="beam_list"></datalist>
     </div>
+
+    <div id="observablehq-b354108b"></div>
+        <script type="module">
+        import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+        import define from "https://api.observablehq.com/@yq605879396/clickable-word-cloud.js?v=3";
+        const inspect = Inspector.into("#observablehq-b354108b");
+        (new Runtime).module(define, name => (name === "wordCloud") && inspect());
+        </script>
 
 	</div>
 </section><!-- cd-section -->
@@ -115,8 +127,9 @@
             return new Inspector(document.querySelector("#chart"));
           }
         });
-        </script>        
-	</div>
+        </script> 
+
+
 
 </section><!-- cd-section -->
 
@@ -131,25 +144,57 @@
 		      <button type="submit" class="button button2">distort</button>
 
           <!-- draw specil picture -->
-          <div id="picture_show"></div>
-              <script type="module">
-              
-              // Load the Observable runtime and inspector.
-              import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
-              
-              // Your notebook, compiled as an ES module.
-              import notebook from "https://api.observablehq.com/@yq605879396/mona-lisa-histogram.js?v=3";
-              
-              // Load the notebook, observing its cells with a default Inspector
-              // that simply renders the value of each cell into the provided DOM node.
-              // new Runtime().module(notebook, Inspector.into(document.body));
-              new Runtime().module(notebook, name => {
-                if (name === "chart") {
-                  return new Inspector(document.querySelector("#picture_show"));
-                }
-              });
-              </script>        
-          </div>
+              <div id="chart"></div>
+        <script type="module">
+        
+        // Load the Observable runtime and inspector.
+        import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+        
+        // Your notebook, compiled as an ES module.
+        import notebook from "https://api.observablehq.com/@yq605879396/mona-lisa-histogram/3.js?v=3";
+        
+        // Load the notebook, observing its cells with a default Inspector
+        // that simply renders the value of each cell into the provided DOM node.
+        // new Runtime().module(notebook, Inspector.into(document.body));
+        
+        new Runtime().module(notebook, name => {
+          if (name === "chart") {
+            return new Inspector(document.querySelector("#chart"));
+          }
+        });
+        </script> 
+
+
+
+        <div id="observablehq-148a292d"></div>
+<script type="module">
+import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+import define from "https://api.observablehq.com/@yq605879396/input-draw-a-box-on-image/2.js?v=3";
+const inspect = Inspector.into("#observablehq-148a292d");
+(new Runtime).module(define, name => (name === "viewof a") && inspect());
+</script>
+
+        
+
+        <!--div id="test_3"></div>
+        <script type="module">
+        
+        // Load the Observable runtime and inspector.
+        import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+        
+        // Your notebook, compiled as an ES module.
+        import notebook from "https://api.observablehq.com/@yq605879396/mona-lisa-histogram/3.js?v=3";
+        
+        // Load the notebook, observing its cells with a default Inspector
+        // that simply renders the value of each cell into the provided DOM node.
+        // new Runtime().module(notebook, Inspector.into(document.body));
+        
+        new Runtime().module(notebook, name => {
+          if (name === "viewof a") {
+            return new Inspector(document.querySelector("#test_3"));
+          }
+        });
+        </script--> 
 
 	</div>
 </section><!-- cd-section -->

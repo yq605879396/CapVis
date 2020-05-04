@@ -74,6 +74,9 @@ var words = [
     "It was inevitable: the scent of bitter almonds always reminded him of the fate of unrequited love."
 ]
 
+d3.tsv("https://raw.githubusercontent.com/yq605879396/CapVis/master/all_caption.txt?token=ANCKJS7SPBXHE2TSRVOIX2K6V7MH2", function(data) {
+    words = data;
+})
 //Prepare one of the sample sentences by removing punctuation,
 // creating an array of words and computing a random size attribute.
 function getWords(i) {
