@@ -14,6 +14,7 @@ Centers = np.loadtxt('./pretrained/center_100')
 test_vec = np.loadtxt('photo/test_photo_vec')
 f_caption = open('./pretrained/all_caption.csv', 'r')
 caption_lines = f_caption.readlines()
+
 for i in range(len(caption_lines)):
     caption_lines[i] = caption_lines[i].strip('\n')
 

@@ -101,14 +101,16 @@
         <h2>Get Caption</h2>
         <p></p>
         <img src="{{ url_for('static', filename='./images/test.jpg',_t=val1)}}"  width="500" height="400" alt="image get lost TAT"/>
-        <form action ='/search' method='post'></br></br>
-            <front size ="3">{{text_clear}}</front></br></br>
+        </br></br>
+        <front size ="3">{{text_clear}}</front></br></br>
+
+        <form action ='' method='post' enctype=multipart/form-data>
             <div id="bool" style="background-color:#2ab0b9;clear:both;text-align:center;"></div></br>
             <!--button type="submit" class="button button2">need similar image?</button-->
             <div id="bool" style="background-color:#2ab0b9;clear:both;text-align:center;"></div>
             <form action="" method=post enctype=multipart/form-data>
             <input class="button button2" type=file name=file>
-            <input class="button button2" type=submit value=Resubmit></br></br>
+            <input class="button button2" type=submit value=Resubmit formmethod=post ></br></br>
             <button type="submit" class="button button2">good</button>
             <button type="submit" class="button button2">bad</button> 
         </form>
