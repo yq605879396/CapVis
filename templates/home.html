@@ -93,24 +93,24 @@
 
     <!-- draw word cloud -->
     <div id="observablehq-174c04f0"></div>
-    <script type="module">
-    import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
-    import define from "https://api.observablehq.com/@borowski-9ld/word-cloud.js?v=3";
-    const inspect = Inspector.into("#observablehq-174c04f0");
-    (new Runtime).module(define, name => (name === "result") && inspect());
-    </script>
-
+        <script type="module">
+        import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+        import define from "https://api.observablehq.com/@borowski-9ld/word-cloud.js?v=3";
+        const inspect = Inspector.into("#observablehq-174c04f0");
+        (new Runtime).module(define, name => (name === "result") && inspect());
+        </script>
 	</div>
+
 </section><!-- cd-section -->
 
-<section id="section3" class="cd-section">
+<!--section id="section3" class="cd-section">
 	<div class="content-wrapper">
 		<h2>This is for test</h2>
-		<p> It will be removed</p>
+		<p> It will be removed</p-->
 
 
         <!-- draw specil picture -->
-        <div id="chart"></div>
+        <!--div id="chart"></div>
         <script type="module">
         
         // Load the Observable runtime and inspector.
@@ -128,8 +128,63 @@
             return new Inspector(document.querySelector("#chart"));
           }
         });
-        </script> 
-</section><!-- cd-section -->
+        </script-->
+
+<!--/div>
+</section--><!-- cd-section -->
+ <style>
+         .left {
+           float: left;
+           width: 500px;
+           height: 600px;
+           margin:10px;
+           margin-left:60px;
+           margin-top::20px;
+         }
+         .right {
+           margin:20px;
+           margin-left: 500px;
+           margin-top: 20
+           height: auto;
+         }
+         .space{
+
+         }
+        </style>
+
+<div class="content-wrapper">        
+    <div id ="lisa" class:right></div>
+    <div id ="lisa2" class:left></div>
+    <script type="module">
+
+    import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+    import define from "    https://api.observablehq.com/@yq605879396/input-draw-a-box-on-image/3.js?v=3";
+    import notebook from "  https://api.observablehq.com/@yq605879396/input-draw-a-box-on-image/3.js?v=3";
+    //const inspect = Inspector.into("#observablehq-78e687e1");
+    ////(new Runtime).module(define, name => (name === "viewof a") && inspect() );
+    //new Runtime().module(notebook, name => {
+    //  return {
+    //    pending() { console.log(`${name} is running…`); },
+    //    fulfilled(value) { console.log(name, value); },
+    //    rejected(error) { console.error(error); }
+    //  };
+    //});
+    new Runtime().module(notebook, name => {
+      switch (name) {
+        case "a": return new Inspector(document.querySelector("#lisa"));
+        case "viewof a": return new Inspector(document.querySelector("#lisa2"));
+      }
+    });
+    
+    
+    
+    </script>
+    <button type="submit" class="button button2">shelter</button>
+    <button type="submit" class="button button2">select</button> 
+</div>
+
+
+
         
 
 

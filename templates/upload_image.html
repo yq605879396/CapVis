@@ -42,6 +42,33 @@
         <datalist id="beam_list"></datalist>
         </div>
     <input class="button button2" type=submit value=Upload>
-    </div>
+    
+</div>
+    <div id ="lisa"></div>
+<div id ="lisa2"></div>
+<script type="module">
+import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+import define from "https://api.observablehq.com/@yq605879396/input-draw-a-box-on-image/3.js?v=3";
+import notebook from "https://api.observablehq.com/@yq605879396/input-draw-a-box-on-image/3.js?v=3";
+//const inspect = Inspector.into("#observablehq-78e687e1");
+////(new Runtime).module(define, name => (name === "viewof a") && inspect() );
+//new Runtime().module(notebook, name => {
+//  return {
+//    pending() { console.log(`${name} is running…`); },
+//    fulfilled(value) { console.log(name, value); },
+//    rejected(error) { console.error(error); }
+//  };
+//});
+new Runtime().module(notebook, name => {
+  switch (name) {
+    case "a": return new Inspector(document.querySelector("#lisa"));
+    case "viewof a": return new Inspector(document.querySelector("#lisa2"));
+  }
+});
+
+
+</script>
+
+
 </body>
 </form>

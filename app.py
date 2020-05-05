@@ -132,6 +132,9 @@ def home():
         # 获取post过来的文件名称，从name=file参数中获取
         global file_name 
         file = request.files['file']
+
+        Beam_size = int(request.form['BEAM'])
+
         if file and allowed_file(file.filename):
             print(file.filename)
             # secure_filename方法会去掉文件名中的中文
@@ -153,7 +156,7 @@ def home():
             #print("The image_list is:", image_list)
             #print(caption_list)
             caption_words, total_words, catg_num = word_static(image_label)
-            print(caption_words)
+            #print(caption_words)
 
             for i in range(len(image_list)):
                 same_class_img_from_path = './pretrained/Flickr_Data/Images/' + str(image_list[i]) + '.jpg'
@@ -175,7 +178,8 @@ def home():
             img = cv.imread(os.path.join(app.config['UPLOAD_FOLDER'], file_name))
             cv.imwrite( static_path,img)
 
-            seq, seq_clear= test_photo(img_path)
+            seq, seq_clear= test_photo(img_path, beam_size = Beam_size)
+            #seq = test_photo(img_path, beam_size = Beam_size)
             print(seq)
             return render_template('main.html', val1=time.time(), text =seq, text_clear=seq_clear, length = len(seq), cap_list = caption_list, cap_words = caption_words, words_num = total_words, words_cat = catg_num)
         else:
@@ -212,7 +216,7 @@ def uploads():
             #print("The image_list is:", image_list)
             #print(caption_list)
             caption_words, total_words, catg_num = word_static(image_label)
-            print(caption_words)
+            #print(caption_words)
 
             for i in range(len(image_list)):
                 same_class_img_from_path = '../pretrained/Flickr_Data/Images/' + str(image_list[i]) + '.jpg'
