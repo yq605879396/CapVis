@@ -212,7 +212,7 @@
             <br/>
             <front size = "10">The number of total used words is {{words_num}}, and the category is {{words_cat}}.</front>
             <br/><br/>
-            <img src="/static/words/pie.jpg"  width="750" height="750" alt="image get lost TAT" id="new_img"/>
+            <img src="/static/words/pie.jpg"  width="750" height="750" alt="image get lost TAT"/>
         </div>
     </div>
 
@@ -235,7 +235,7 @@
 </section><!-- cd-section -->
 
 
-<!-- Transeform-->
+<!-- Transform-->
 <section id="section4" class="cd-section">
     <div class="content-wrapper">
         <h2>Transform</h2>
@@ -260,19 +260,24 @@
               }
             });
             </script>
-    
+
+        </br></br></br>
         <button onclick="displayLoc()"class="button button 2">Shelter</button>
-        <button onclick="show_new_caption('generate')" class="button button2">Show new caption</button></br>
-        
-        <img src="{{ url_for('static', filename='./images/generated_test.jpg',_t=val1)}}"  width="600" height="400" alt="image get lost TAT"/>
+        <button onclick="update_img()"class="button button 2">Update</button>
+        <button onclick="show_new_caption('generate')" class="button button2">Show caption</button></br></br></br>
+
+        <img src="{{ url_for('static', filename='./images/test.jpg',_t=val1)}}"  width="600" height="400" alt="image get lost TAT" id="new_img"/> <!--  width="600" height="400" -->
             <br/>
-            <front size ="3">{{generated_seq}}</front></br></br>
 
         <div id='generate' style='display:none'>                
-            <img src="{{ url_for('static', filename='./images/generated_test.jpg',_t=val1)}}"  width="600" height="400" alt="image get lost TAT"/>
+            <!--img src="{{ url_for('static', filename='./images/test.jpg',
+                _t=val1)}}"  width="600" height="400" alt="image get lost TAT"/-->
             <br/>
-            <front size ="3">{{generated_seq}}</front></br></br>
+
+            <p id="new_caption">{{generated_seq}}</p>
+            <!--front size ="3">{{generated_seq}}</front></br></br-->
         </div>  
+        </br>
     </div>
 </section>
 
@@ -394,6 +399,19 @@ document.getElementById("similar").style.display = 'none';
 
 
 <script type="text/javascript">
+
+
+function update_img(){
+    $('#new_img').hide().attr('src', "http://127.0.0.1:5000/photo/generated_test.jpg"+"?t="+Math.random());
+    $('#new_img').show()
+
+    var htmlobj=$.ajax({url:"http://127.0.0.1:5000/photo/caption",async:false});
+    //var htmlobj=$.ajax({"../text/new_caption.txt",async:false});
+    document.getElementById('new_caption').innerText = htmlobj.responseText;
+    //document.getElementById('new_img').src="{{ url_for('static', filename='./images/generated_test.jpg',_t=val1)}}"+"?rand=h9xqeI";
+    //$("#new_img").attr('src', src="{{ url_for('static', filename='./images/test.jpg',_t=val1)}}"+"?t=" + Math.random());
+}
+
 function show_similar(id){
     if (document.getElementById(id).style.display == 'none') {
         document.getElementById(id).style.display = 'block';
@@ -431,10 +449,14 @@ function show_pie(id){
 
 
 function show_new_caption(id){
+    //var ForReading=1; 
+    //var fso=new ActiveXObject("Scripting.FileSystemObject"); 
+    //var openf1 = fso.OpenTextFile("./static/images/new_caption.txt");
+    //var str2 = openf1.ReadAll();
+
     if (document.getElementById(id).style.display == 'none') {
         document.getElementById(id).style.display = 'block';
-        //document.getElementById('new_img').src="{{ url_for('static', filename='./images/test.jpg',_t=val1)}}"+"?rand=h9xqeI";
-        $("#new_img").attr('src', src="{{ url_for('static', filename='./images/test.jpg',_t=val1)}}"+"?t=" + Math.random());
+
     }
     else if (document.getElementById(id).style.display == 'block') {
         document.getElementById(id).style.display = 'none';
@@ -495,7 +517,7 @@ function displayLoc()
         }
       }
     });
-  $('#new_img').hide().attr('src', "{{ url_for('static', filename='./images/test.jpg')}}"+new Date().getTime()).fadeIn();
+  
   
 
 }

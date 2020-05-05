@@ -219,7 +219,7 @@ def home():
             # save to global
             tempt_seq, tempt_seq_clear, tempt_caption_list  =  seq, seq_clear, caption_list
             tempt_caption_words, tempt_total_words, tempt_catg_num = caption_words, total_words, catg_num
-            return render_template('main.html', val1=time.time(), text =seq, text_clear=seq_clear, length = len(seq), cap_list = caption_list, cap_words = caption_words, words_num = total_words, words_cat = catg_num, generated_seq = "??")
+            return render_template('main.html', val1=time.time(), text =seq, text_clear=seq_clear, length = len(seq), generated_seq = seq_clear, cap_list = caption_list, cap_words = caption_words, words_num = total_words, words_cat = catg_num)
         else:
             #flash("wrong format, please uplead .jpg file", "warning")
             return "wrong format, please uplead .jpg/.png/.jpeg file"
@@ -238,12 +238,18 @@ def home():
                 cv.imwrite(new_img_path,new_img)
                 new_seq= test_photo_easy(new_img_path)
                 print(new_seq)
+                
+                # save new string to file
+                fn = base_path+"/static/text/new_caption.txt"
+                fh = open(fn,'w')
+                fh.write(new_seq)
+                fh.close()
                 return render_template('main.html',val1=time.time(), text =tempt_seq, text_clear=tempt_seq_clear, length = len(tempt_seq), cap_list = tempt_caption_list, \
                     cap_words = tempt_caption_words, words_num = tempt_total_words, words_cat = tempt_catg_num, generated_seq = new_seq)
                 #return new_seq
 
     return render_template("home.html")
-
+'''
 # 上传图片页面nc=upload_image, methods=["POST"])
 @app.route('/upload/', methods=['POST', "GET"])
 def uploads():
@@ -341,7 +347,7 @@ def show(image_path, seq, alphas, rev_word_map,smooth=True):
         plt.axis('off')
     plt.show()
  
- 
+
 # 查看图片
 @app.route("/photo/<imageId>.jpg")
 def get_frame(imageId):
@@ -350,6 +356,26 @@ def get_frame(imageId):
         image = f.read()
         resp = Response(image, mimetype="image/jpg")
         return resp
+'''
+
+ # 查看图片
+@app.route("/photo/<imageId>.jpg")
+def get_frame(imageId):
+    # 图片上传保存的路径
+    #with open(r'C:/Users/60587/Desktop/CapVis/static/images/test_.jpg'.format(imageId), 'rb') as f:
+    with open(r'C:/Users/60587/Desktop/CapVis/static/images/'+imageId+'.jpg', 'rb') as f:
+        image = f.read()
+        resp = Response(image, mimetype="image/jpg")
+        return resp       
+# 查看图片
+@app.route("/photo/caption")
+def get_caption():
+    # 图片上传保存的路径
+    #with open(r'C:/Users/60587/Desktop/CapVis/static/images/test_.jpg'.format(imageId), 'rb') as f:
+    with open(r'C:/Users/60587/Desktop/CapVis/static/text/new_caption.txt', 'rb') as f:
+        txt = f.read()
+        resp = Response(txt, mimetype="text/plain")
+        return resp       
 
  
 if __name__ == "__main__":
