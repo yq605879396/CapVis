@@ -315,6 +315,34 @@ def test_photo(img, model='pretrained/BEST_checkpoint_flickr30k_5_cap_per_img_5_
 
     return sentence, sentence_clear
 
+
+def test_photo_easy(img, model='pretrained/BEST_checkpoint_flickr30k_5_cap_per_img_5_min_word_freq.pth.tar', word_map ='pretrained/WORDMAP_flickr30k_5_cap_per_img_5_min_word_freq.json', beam_size = 5):
+
+    # Load model
+    checkpoint = torch.load(model, map_location=str(device))
+    decoder = checkpoint['decoder']
+    decoder = decoder.to(device)
+    decoder.eval()
+    encoder = checkpoint['encoder']
+    encoder = encoder.to(device)
+    encoder.eval()
+
+
+    # Load word map (word2ix)
+    with open(word_map, 'r') as j:
+        word_map = json.load(j)
+    rev_word_map = {v: k for k, v in word_map.items()}  # ix2word
+
+    # Encode, decode with attention and beam search
+    seq, alphas = caption_image_beam_search(encoder, decoder, img, word_map, beam_size)
+    alphas = torch.FloatTensor(alphas)
+
+    sentence = []
+    sentence += [rev_word_map[ind] for ind in seq]
+    sentence = ' '.join(item for item in sentence if item != '<start>' and item != '<end>')
+
+    return sentence
+    
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Show, Attend, and Tell - Tutorial - Generate Caption')
 

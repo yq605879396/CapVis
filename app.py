@@ -1,7 +1,7 @@
 from flask import Flask, Response, request, render_template, url_for
 from werkzeug.utils import secure_filename
 import os
-from caption import test_photo
+from caption import test_photo, test_photo_easy
 from flask import make_response
 import cv2 as cv
 import io
@@ -94,8 +94,41 @@ def word_static(index):
     return dic_num, total_words, dic_array.shape[0]
 ### Ended by Dongzi ###
 
+### Added fot twist
+def generate_new_image(can_w,can_h,x,y,w,h,img):
+    x = float(x)
+    y = float(y)
+    w = float(w)
+    h = float(h)
+    raw_w,raw_h = img.shape[1],img.shape[0]
+    ratio_w, ratio_h = float(raw_w)/float(can_w), float(raw_h)/float(can_h)
+    
+    x = int(x*ratio_w)
+    y = int(y*ratio_h)
+    w = int(w*ratio_w)
+    h = int(h*ratio_h)
+
+    #print("read canvas:")
+    #print(can_w,can_h)
+    #print("read images")
+    #print(raw_w,raw_h)
+    #print("the ratio")
+    #print(ratio_w,ratio_h)
+    #print("result:")
+    #print(x,y,w,h)
+    for i in range(h):
+        for j in range(w):
+            img[i+y][x+j] =[0,0,0]
+    #img=img.rectangle((60,90,100,120), fill = (0,0,0))
+    return img
 
 
+tempt_seq=""  
+tempt_seq_clear ="" 
+tempt_caption_list = [] 
+tempt_caption_words=[] 
+tempt_total_words=[] 
+tempt_catg_num = 0
 
 from datetime import timedelta
 
@@ -109,7 +142,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # 设置允许上传的文件格式
 ALLOW_EXTENSIONS = ['png', 'jpg', 'jpeg']
  
-app.send_file_max_age_default = timedelta(seconds=1)
+app.send_file_max_age_default = timedelta(seconds=0.001)
 
  
 # 判断文件后缀是否在列表中
@@ -128,6 +161,7 @@ def return_img_stream(img_local_path):
     
 @app.route('/home/', methods=['POST', "GET"])
 def home():
+    global tempt_seq , tempt_seq_clear, tempt_caption_list, tempt_caption_words, tempt_total_words, tempt_catg_num
     if request.method == 'POST':
         # 获取post过来的文件名称，从name=file参数中获取
         global file_name 
@@ -181,10 +215,33 @@ def home():
             seq, seq_clear= test_photo(img_path, beam_size = Beam_size)
             #seq = test_photo(img_path, beam_size = Beam_size)
             print(seq)
-            return render_template('main.html', val1=time.time(), text =seq, text_clear=seq_clear, length = len(seq), cap_list = caption_list, cap_words = caption_words, words_num = total_words, words_cat = catg_num)
+
+            # save to global
+            tempt_seq, tempt_seq_clear, tempt_caption_list  =  seq, seq_clear, caption_list
+            tempt_caption_words, tempt_total_words, tempt_catg_num = caption_words, total_words, catg_num
+            return render_template('main.html', val1=time.time(), text =seq, text_clear=seq_clear, length = len(seq), cap_list = caption_list, cap_words = caption_words, words_num = total_words, words_cat = catg_num, generated_seq = "??")
         else:
             #flash("wrong format, please uplead .jpg file", "warning")
             return "wrong format, please uplead .jpg/.png/.jpeg file"
+    elif request.method == 'GET':
+            [canvas_width, canvas_height]=[request.args.get('canvas_w'),request.args.get('canvas_h')]
+            [x,y,width,height]=[request.args.get('x'),request.args.get('y'),request.args.get('width'),request.args.get('height')]
+            print(canvas_width, canvas_height,x,y,width,height)
+            if canvas_width:
+                img = cv.imread("./static/images/test.jpg")
+                new_img = generate_new_image(canvas_width, canvas_height,x,y,width,height,img)
+                  # get new caption
+                base_path = os.getcwd()
+                new_img_path = os.path.join(base_path, 'static/images','generated_test.jpg')
+                if(os.path.exists(new_img_path)):
+                        os.remove(new_img_path)
+                cv.imwrite(new_img_path,new_img)
+                new_seq= test_photo_easy(new_img_path)
+                print(new_seq)
+                return render_template('main.html',val1=time.time(), text =tempt_seq, text_clear=tempt_seq_clear, length = len(tempt_seq), cap_list = tempt_caption_list, \
+                    cap_words = tempt_caption_words, words_num = tempt_total_words, words_cat = tempt_catg_num, generated_seq = new_seq)
+                #return new_seq
+
     return render_template("home.html")
 
 # 上传图片页面nc=upload_image, methods=["POST"])

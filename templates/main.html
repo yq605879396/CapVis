@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="en" class="no-js">
 <head>
+    
+<META HTTP-EQUIV="pragma" CONTENT="no-cache">
+
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+
+<META HTTP-EQUIV="expires" CONTENT="Wed, 26 Feb 1997 08:21:57 GMT">
+
+<META HTTP-EQUIV="expires" CONTENT="0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -78,7 +86,7 @@
         <li><a href="#section1" class="active"><span class="label">Get Caption</span></a></li>
         <li><a href="#section2"><span class="label">Internals</span></a></li>
         <li><a href="#section3"><span class="label">Analysis</span></a></li>
-        <li><a href="#section4"><span class="label">Twist</span></a></li>
+        <li><a href="#section4"><span class="label">Transform</span></a></li>
         <!--li><a href="#section5"><span class="label">Contact</span></a></li-->
     </ul>
 </nav><!-- .cd-vertical-nav -->
@@ -204,19 +212,14 @@
             <br/>
             <front size = "10">The number of total used words is {{words_num}}, and the category is {{words_cat}}.</front>
             <br/><br/>
-            <img src="/static/words/pie.jpg"  width="750" height="750" alt="image get lost TAT"/>
+            <img src="/static/words/pie.jpg"  width="750" height="750" alt="image get lost TAT" id="new_img"/>
         </div>
     </div>
-
-
 
 </section><!-- cd-section -->
 
 
-
-
-
-<!-- twist -->
+<!-- Analysis -->
 <section id="section3" class="cd-section">
     <div class="content-wrapper">
         <h2>Analysis</h2>
@@ -226,95 +229,50 @@
             <script src="https://d3js.org/d3.v4.min.js"></script>
             <script src="../static/js/word_frequency.js"></script> 
         </div>
-          <!-- draw specil picture -->
-  
+          <!-- draw specil picture -->  
     </div>
 
 </section><!-- cd-section -->
 
 
-
-
-<!-- draw on monalisa -->
-<style>
-         .left {
-           float: left;
-           width: 500px;
-           height: 600px;
-           margin:10px;
-           margin-left:60px;
-           margin-top::20px;
-         }
-         .right {
-           margin:20px;
-           margin-left: 500px;
-           margin-top: 20
-           height: auto;
-         }
-         .space{
-
-         }
-        </style>
-
-<div class="content-wrapper">        
-    <div id ="lisa" class:right></div>
-    <div id ="lisa2" class:left></div>
-    <script type="module">
-    import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
-    import define from "    https://api.observablehq.com/@yq605879396/input-draw-a-box-on-image/3.js?v=3";
-    import notebook from "  https://api.observablehq.com/@yq605879396/input-draw-a-box-on-image/3.js?v=3";
-    //const inspect = Inspector.into("#observablehq-78e687e1");
-    ////(new Runtime).module(define, name => (name === "viewof a") && inspect() );
-    //new Runtime().module(notebook, name => {
-    //  return {
-    //    pending() { console.log(`${name} is running…`); },
-    //    fulfilled(value) { console.log(name, value); },
-    //    rejected(error) { console.error(error); }
-    //  };
-    //});
-    new Runtime().module(notebook, name => {
-      switch (name) {
-        case "a": return new Inspector(document.querySelector("#lisa"));
-        case "viewof a": return new Inspector(document.querySelector("#lisa2"));
-      }
-    });
-    
-    
-    
-    </script>
-    <button type="submit" class="button button2">good</button>
-    <button type="submit" class="button button2">bad</button> 
-</div>
-
-
-<!-- Twsit-->
+<!-- Transeform-->
 <section id="section4" class="cd-section">
     <div class="content-wrapper">
         <h2>Transform</h2>
-        <p></p>
-  
+        <p></p>    
+        <!-- draw specil picture -->
+        <div id="chart1"></div>
+            <script type="module">
+            
+            // Load the Observable runtime and inspector.
+            import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+            
+            // Your notebook, compiled as an ES module.
+            import notebook from "https://api.observablehq.com/@yq605879396/mona-lisa-histogram/2.js?v=3";
+            
+            // Load the notebook, observing its cells with a default Inspector
+            // that simply renders the value of each cell into the provided DOM node.
+            // new Runtime().module(notebook, Inspector.into(document.body));
+            
+            new Runtime().module(notebook, name => {
+              if (name === "chart") {
+                return new Inspector(document.querySelector("#chart1"));
+              }
+            });
+            </script>
+    
+        <button onclick="displayLoc()"class="button button 2">Shelter</button>
+        <button onclick="show_new_caption('generate')" class="button button2">Show new caption</button></br>
         
-        <!--rect monalisa-->
-        <!--div id="modify_pic"></div>
-        <script type="module">
-        
-        // Load the Observable runtime and inspector.
-        import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
-        
-        // Your notebook, compiled as an ES module.
-        import notebook from "https://api.observablehq.com/@yq605879396/mona-lisa-histogram/3.js?v=3";
-        
-        // Load the notebook, observing its cells with a default Inspector
-        // that simply renders the value of each cell into the provided DOM node.
-        // new Runtime().module(notebook, Inspector.into(document.body));
-        
-        new Runtime().module(notebook, name => {
-          if (name === "chart") {
-            return new Inspector(document.querySelector("#modify_pic"));
-          }
-        });
-        </script-->   
-        
+        <img src="{{ url_for('static', filename='./images/generated_test.jpg',_t=val1)}}"  width="600" height="400" alt="image get lost TAT"/>
+            <br/>
+            <front size ="3">{{generated_seq}}</front></br></br>
+
+        <div id='generate' style='display:none'>                
+            <img src="{{ url_for('static', filename='./images/generated_test.jpg',_t=val1)}}"  width="600" height="400" alt="image get lost TAT"/>
+            <br/>
+            <front size ="3">{{generated_seq}}</front></br></br>
+        </div>  
     </div>
 </section>
 
@@ -330,14 +288,6 @@
         <h2>Contact</h2>
         <p> Thank you for your effort.</p>
         <input type="txt"  rows="4" cols="60" placeholder="Please chime in here with your thoughts ^^/" name='username' style="height:38px;width:480px;">
-    
-        
-    </div>
-
-    <div class="" id="neuralNet"></div>
-
-
-
     </div>
 </section><!-- cd-section -->
 
@@ -476,4 +426,131 @@ function show_pie(id){
         document.getElementById(id).style.display = 'none';
     }
 }
+
+
+
+
+function show_new_caption(id){
+    if (document.getElementById(id).style.display == 'none') {
+        document.getElementById(id).style.display = 'block';
+        //document.getElementById('new_img').src="{{ url_for('static', filename='./images/test.jpg',_t=val1)}}"+"?rand=h9xqeI";
+        $("#new_img").attr('src', src="{{ url_for('static', filename='./images/test.jpg',_t=val1)}}"+"?t=" + Math.random());
+    }
+    else if (document.getElementById(id).style.display == 'block') {
+        document.getElementById(id).style.display = 'none';
+    }
+}
+
+
+//added for twist
+function displayLoc()
+{
+  var elements = document.getElementById("chart1");
+  var elems = elements.getElementsByClassName("selection");
+  var target_rect = elements.getElementsByTagName("rect");
+  
+  //console.log(target_rect);
+  console.log(target_rect[1].getAttribute("x"));
+  //console.log(target_rect[2].getAttribute("x"));
+  //console.log(target_rect[3].getAttribute("x"));
+  console.log(target_rect[1].getAttribute("y"));
+  //console.log(target_rect[2].getAttribute("y"));
+  //console.log(target_rect[3].getAttribute("y"));
+  console.log(target_rect[1].getAttribute("width"));
+  //console.log(target_rect[2].getAttribute("width"));
+  //console.log(target_rect[3].getAttribute("width"));
+  console.log(target_rect[1].getAttribute("height"));
+  //console.log(target_rect[2].getAttribute("height"));
+  //console.log(target_rect[3].getAttribute("height"));
+  var target_canvas = elements.getElementsByTagName("canvas")
+  //console.log(target_canvas);
+  console.log(target_canvas[0].getAttribute("width"));
+  console.log(target_canvas[0].getAttribute("height"));
+  //console.log(target_rect[1].getAttribute("width"));
+  //console.log(target_rect[1].getAttribute("height"));
+
+  var params={};
+    params.x=target_rect[1].getAttribute("x");
+    params.y=target_rect[1].getAttribute("y");
+    params.width=target_rect[1].getAttribute("width");
+    params.height=target_rect[1].getAttribute("height");
+    params.canvas_w =target_canvas[0].getAttribute("width")
+    params.canvas_h =target_canvas[0].getAttribute("height")
+    //alert(params);
+
+  var targetUrl = "http://127.0.0.1:5000/home";
+  //alert(targetUrl);
+  $.ajax({
+      type:'GET',
+      url:targetUrl,
+      data:params,
+      datatype:'args',               //同步调用，保证先执行result=true,后再执行return result;
+      success:function(data){
+        if(data.result=='SUCCESS'){
+          //window.location.href="http://127.0.0.1:5000/home/";
+          //弹出登录成功！
+          //alert("yeah!!");
+        }else{
+          //alert("no!!");
+        }
+      }
+    });
+  $('#new_img').hide().attr('src', "{{ url_for('static', filename='./images/test.jpg')}}"+new Date().getTime()).fadeIn();
+  
+
+}
 </script>
+
+
+
+
+<!-- draw on monalisa -->
+<!--style>
+         .left {
+           float: left;
+           width: 500px;
+           height: 600px;
+           margin:10px;
+           margin-left:60px;
+           margin-top::20px;
+         }
+         .right {
+           margin:20px;
+           margin-left: 500px;
+           margin-top: 20
+           height: auto;
+         }
+         .space{
+
+         }
+        </style>
+
+<div class="content-wrapper">        
+    <div id ="lisa" type:right></div>
+    <div id ="lisa2" class:left></div>
+    <script type="module">
+    import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+    import define from "https://api.observablehq.com/@yq605879396/input-draw-a-box-on-image/3.js?v=3";
+    import notebook from "https://api.observablehq.com/@yq605879396/input-draw-a-box-on-image/3.js?v=3";
+    //const inspect = Inspector.into("#observablehq-78e687e1");
+    ////(new Runtime).module(define, name => (name === "viewof a") && inspect() );
+    //new Runtime().module(notebook, name => {
+    //  return {
+    //    pending() { console.log(`${name} is running…`); },
+    //    fulfilled(value) { console.log(name, value); },
+    //    rejected(error) { console.error(error); }
+    //  };
+    //});
+    new Runtime().module(notebook, name => {
+      switch (name) {
+        case "a": return new Inspector(document.querySelector("#lisa"));
+        case "viewof a": return new Inspector(document.querySelector("#lisa2"));
+      }
+    });
+    
+    
+    
+    </script>
+    <button type="submit" class="button button2">good</button>
+    <button type="submit" class="button button2">bad</button> 
+</div-->

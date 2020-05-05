@@ -54,8 +54,8 @@
 	<ul>
 		<li><a href="#section1" class="active"><span class="label">Start</span></a></li>
 		<li><a href="#section2"><span class="label">Uplad</span></a></li>
-		<li><a href="#section3"><span class="label">Test</span></a></li-->
-		<li><a href="#section4"><span class="label">FeedBack</span></a></li-->
+		<!--li><a href="#section3"><span class="label">target_rect</span></a></li-->
+		<li><a href="#section3"><span class="label">FeedBack</span></a></li>
 		<!--li><a href="#section5"><span class="label">Contact</span></a></li-->
 	</ul>
 </nav><!-- .cd-vertical-nav -->
@@ -105,34 +105,44 @@
 
 <!--section id="section3" class="cd-section">
 	<div class="content-wrapper">
-		<h2>This is for test</h2>
+		<h2>This is for target_rect</h2>
 		<p> It will be removed</p-->
 
+    <!-- draw specil picture -->
+    <!--div id="chart1"></div>
+    <script type="module">
+    
+    // Load the Observable runtime and inspector.
+    import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+    
+    // Your notebook, compiled as an ES module.
+    import notebook from "https://api.observablehq.com/@yq605879396/mona-lisa-histogram/2.js?v=3";
+    
+    // Load the notebook, observing its cells with a default Inspector
+    // that simply renders the value of each cell into the provided DOM node.
+    // new Runtime().module(notebook, Inspector.into(document.body));
+    
+    new Runtime().module(notebook, name => {
+      if (name === "chart") {
+        return new Inspector(document.querySelector("#chart1"));
+      }
+    });
+    </script>
 
-        <!-- draw specil picture -->
-        <!--div id="chart"></div>
-        <script type="module">
-        
-        // Load the Observable runtime and inspector.
-        import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
-        
-        // Your notebook, compiled as an ES module.
-        import notebook from "https://api.observablehq.com/@yq605879396/mona-lisa-histogram/3.js?v=3";
-        
-        // Load the notebook, observing its cells with a default Inspector
-        // that simply renders the value of each cell into the provided DOM node.
-        // new Runtime().module(notebook, Inspector.into(document.body));
-        
-        new Runtime().module(notebook, name => {
-          if (name === "chart") {
-            return new Inspector(document.querySelector("#chart"));
-          }
-        });
-        </script-->
+    <button onclick="displayLoc()"class="button button 2">click</button>
+    <button type="submit" class="button button2">shelter</button>
+    <button onclick="show_new_caption('generate')" class="button button2">Show new caption</button></br>
 
-<!--/div>
-</section--><!-- cd-section -->
- <style>
+    <div id='generate' style='display:none'>
+            
+            <img src="{{ url_for('static', filename='./images/generated_test.jpg',_t=val1)}}"  width="600" height="400" alt="image get lost TAT"/>
+            <br/>
+            <front size ="3">{{new_seq_clear}}</front></br></br>
+    </div-->
+  <!--/div>
+</section-->
+<!-- cd-section -->
+ <!--style>
          .left {
            float: left;
            width: 500px;
@@ -175,14 +185,9 @@
         case "viewof a": return new Inspector(document.querySelector("#lisa2"));
       }
     });
-    
-    
-    
     </script>
-    <button type="submit" class="button button2">shelter</button>
-    <button type="submit" class="button button2">select</button> 
-</div>
 
+</div-->
 
 
         
@@ -190,7 +195,7 @@
 
 
 <!-- feed back -->
-<section id="section4" class="cd-section">
+<section id="section3" class="cd-section">
 	<div class="content-wrapper">
 		<h2>Contact</h2>
 		<p> Thank you for your effort.</p>
@@ -205,3 +210,75 @@
 <script src="../static/js/main.js"></script> <!-- Resource jQuery -->
 </body>
 </html>
+
+<!-- Qi Yin added -->
+<!--script type="text/javascript">
+function show_new_caption(id){
+    if (document.getElementById(id).style.display == 'none') {
+        document.getElementById(id).style.display = 'block';
+    }
+    else if (document.getElementById(id).style.display == 'block') {
+        document.getElementById(id).style.display = 'none';
+    }
+}
+
+
+
+function displayLoc()
+{
+  var elements = document.getElementById("chart1");
+  var elems = elements.getElementsByClassName("selection");
+  var target_rect = elements.getElementsByTagName("rect");
+  
+  //console.log(target_rect);
+  console.log(target_rect[1].getAttribute("x"));
+  //console.log(target_rect[2].getAttribute("x"));
+  //console.log(target_rect[3].getAttribute("x"));
+  console.log(target_rect[1].getAttribute("y"));
+  //console.log(target_rect[2].getAttribute("y"));
+  //console.log(target_rect[3].getAttribute("y"));
+  console.log(target_rect[1].getAttribute("width"));
+  //console.log(target_rect[2].getAttribute("width"));
+  //console.log(target_rect[3].getAttribute("width"));
+  console.log(target_rect[1].getAttribute("height"));
+  //console.log(target_rect[2].getAttribute("height"));
+  //console.log(target_rect[3].getAttribute("height"));
+  var target_canvas = elements.getElementsByTagName("canvas")
+  //console.log(target_canvas);
+  console.log(target_canvas[0].getAttribute("width"));
+  console.log(target_canvas[0].getAttribute("height"));
+  //console.log(target_rect[1].getAttribute("width"));
+  //console.log(target_rect[1].getAttribute("height"));
+
+  var params={};
+    params.x=target_rect[1].getAttribute("x");
+    params.y=target_rect[1].getAttribute("y");
+    params.width=target_rect[1].getAttribute("width");
+    params.height=target_rect[1].getAttribute("height");
+    params.canvas_w =target_canvas[0].getAttribute("width")
+    params.canvas_h =target_canvas[0].getAttribute("height")
+    //alert(params);
+
+  var targetUrl = "http://127.0.0.1:5000/home";
+  alert(targetUrl);
+  $.ajax({
+      type:'GET',
+      url:targetUrl,
+      data:params,
+      datatype:'args',               //同步调用，保证先执行result=true,后再执行return result;
+      success:function(data){
+        if(data.result=='SUCCESS'){
+          //window.location.href="http://127.0.0.1:5000/home/";
+          //弹出登录成功！
+          alert("yeah!!");
+        }else{
+          alert("no!!");
+        }
+      }
+    });
+
+}
+
+
+
+</script-->
