@@ -283,7 +283,7 @@ def home():
 def get_frame(imageId):
     # 图片上传保存的路径
     #with open(r'C:/Users/60587/Desktop/CapVis/static/images/test_.jpg'.format(imageId), 'rb') as f:
-    with open(r'C:/Users/60587/Desktop/CapVis/static/images/'+imageId+'.jpg', 'rb') as f:
+    with open(r'/Users/qdz/Desktop/NYU_courses/Semester_2/9223-I_Connection_ML/project/CapVis-master/static/images/'+imageId+'.jpg', 'rb') as f:
         image = f.read()
         resp = Response(image, mimetype="image/jpg")
         return resp       
@@ -292,7 +292,7 @@ def get_frame(imageId):
 def get_caption():
     # 图片上传保存的路径
     #with open(r'C:/Users/60587/Desktop/CapVis/static/images/test_.jpg'.format(imageId), 'rb') as f:
-    with open(r'C:/Users/60587/Desktop/CapVis/static/text/new_caption.txt', 'rb') as f:
+    with open(r'/Users/qdz/Desktop/NYU_courses/Semester_2/9223-I_Connection_ML/project/CapVis-master/static/text/new_caption.txt', 'rb') as f:
         txt = f.read()
         resp = Response(txt, mimetype="text/plain")
         return resp       
@@ -300,7 +300,7 @@ def get_caption():
 @app.route("/photo/csv")
 def get_csv():
 
-    with open(r'C:/Users/60587/Desktop/CapVis/static/text/pic_tag_frequency.csv', 'rb') as f:
+    with open(r'/Users/qdz/Desktop/NYU_courses/Semester_2/9223-I_Connection_ML/project/CapVis-master/static/text/pic_tag_frequency.csv', 'rb') as f:
         csv = f.read()
         #print (json)
         #return json
@@ -309,7 +309,7 @@ def get_csv():
 
 @app.route("/photo/json_f")
 def get_freq():
-    with open(r'C:/Users/60587/Desktop/CapVis/static/text/pic_frequency.json', 'rb') as f:
+    with open(r'/Users/qdz/Desktop/NYU_courses/Semester_2/9223-I_Connection_ML/project/CapVis-master/static/text/pic_frequency.json', 'rb') as f:
         csv = f.read()
         #print (json)
         #return json
@@ -318,7 +318,7 @@ def get_freq():
 
 @app.route("/photo/jsontag")
 def get_tag():
-    with open(r'C:/Users/60587/Desktop/CapVis/static/text/pic_tag.json', 'rb') as f:
+    with open(r'/Users/qdz/Desktop/NYU_courses/Semester_2/9223-I_Connection_ML/project/CapVis-master/static/text/pic_tag.json', 'rb') as f:
         csv = f.read()
         #print (json)
         #return json

@@ -23,12 +23,19 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.4.0/rzslider.min.css"
           rel="stylesheet">
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+        <!-- ziti -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;1,900&display=swap" rel="stylesheet">
 
 
 </head>
 
 <style>
+.content-wrapper{ font-family:'Nunito', sans-serif;}
 .button {
+    border-radius:7px;
+    font-family:'Nunito', sans-serif;
     background-color: #8a6e91; /* Green */
     border: none;
     color: white;
@@ -64,13 +71,14 @@
 
 <section id="section1" class="cd-section">
 	<div class="content-wrapper">
-		<h1>Welcom to CapVis<b>#1</b></h1>
+		<h1>Welcome to CapVis</h1>
 		<a href="#section2" class="cd-scroll-down cd-image-replace">scroll down</a>
 	</div>
 </section><!-- cd-section -->
 
 <section id="section2" class="cd-section">
 	<div class="content-wrapper">
+    </br></br>
 		<h2>Pick an Image</h2>
 		<p>Please upload an image.</p></br></br></br>
     <form action="" method=post enctype=multipart/form-data>
@@ -82,7 +90,7 @@
         <datalist id="beam_list"></datalist>
         </div>
     
-        <input class="button button2" type=submit value=Upload></br></br>   </br></br>
+        <input class="button button2" type=submit value=Upload></br></br>   
     </form>
     <!-- draw word cloud -->
     <!--div id="word_cloud">
@@ -103,95 +111,6 @@
 
 </section><!-- cd-section -->
 
-<!--section id="section3" class="cd-section">
-	<div class="content-wrapper">
-		<h2>This is for target_rect</h2>
-		<p> It will be removed</p-->
-
-    <!-- draw specil picture -->
-    <!--div id="chart1"></div>
-    <script type="module">
-    
-    // Load the Observable runtime and inspector.
-    import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
-    
-    // Your notebook, compiled as an ES module.
-    import notebook from "https://api.observablehq.com/@yq605879396/mona-lisa-histogram/2.js?v=3";
-    
-    // Load the notebook, observing its cells with a default Inspector
-    // that simply renders the value of each cell into the provided DOM node.
-    // new Runtime().module(notebook, Inspector.into(document.body));
-    
-    new Runtime().module(notebook, name => {
-      if (name === "chart") {
-        return new Inspector(document.querySelector("#chart1"));
-      }
-    });
-    </script>
-
-    <button onclick="displayLoc()"class="button button 2">click</button>
-    <button type="submit" class="button button2">shelter</button>
-    <button onclick="show_new_caption('generate')" class="button button2">Show new caption</button></br>
-
-    <div id='generate' style='display:none'>
-            
-            <img src="{{ url_for('static', filename='./images/generated_test.jpg',_t=val1)}}"  width="600" height="400" alt="image get lost TAT"/>
-            <br/>
-            <front size ="3">{{new_seq_clear}}</front></br></br>
-    </div-->
-  <!--/div>
-</section-->
-<!-- cd-section -->
- <!--style>
-         .left {
-           float: left;
-           width: 500px;
-           height: 600px;
-           margin:10px;
-           margin-left:60px;
-           margin-top::20px;
-         }
-         .right {
-           margin:20px;
-           margin-left: 500px;
-           margin-top: 20
-           height: auto;
-         }
-         .space{
-
-         }
-        </style>
-
-<div class="content-wrapper">        
-    <div id ="lisa" class:right></div>
-    <div id ="lisa2" class:left></div>
-    <script type="module">
-
-    import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
-    import define from "    https://api.observablehq.com/@yq605879396/input-draw-a-box-on-image/3.js?v=3";
-    import notebook from "  https://api.observablehq.com/@yq605879396/input-draw-a-box-on-image/3.js?v=3";
-    //const inspect = Inspector.into("#observablehq-78e687e1");
-    ////(new Runtime).module(define, name => (name === "viewof a") && inspect() );
-    //new Runtime().module(notebook, name => {
-    //  return {
-    //    pending() { console.log(`${name} is running…`); },
-    //    fulfilled(value) { console.log(name, value); },
-    //    rejected(error) { console.error(error); }
-    //  };
-    //});
-    new Runtime().module(notebook, name => {
-      switch (name) {
-        case "a": return new Inspector(document.querySelector("#lisa"));
-        case "viewof a": return new Inspector(document.querySelector("#lisa2"));
-      }
-    });
-    </script>
-
-</div-->
-
-
-        
-
 
 
 <!-- feed back -->
@@ -199,7 +118,9 @@
 	<div class="content-wrapper">
 		<h2>Contact</h2>
 		<p> Thank you for your effort.</p>
-		<input type="txt"  rows="4" cols="60" placeholder="Please chime in here with your thoughts ^^/" name='username' style="height:38px;width:480px;">        
+		<input type="txt"  rows="4" cols="60" placeholder="Please chime in here with your thoughts ^^/" name='username' style="height:38px;width:480px;">       
+
+
     </div>
 
 
@@ -208,7 +129,13 @@
 	
 <script src="../static/js/jquery-2.1.4.js"></script>
 <script src="../static/js/main.js"></script> <!-- Resource jQuery -->
+
+
+
+
 </body>
+
+
 </html>
 
 <!-- Qi Yin added -->

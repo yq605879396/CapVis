@@ -31,12 +31,19 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.4.0/rzslider.min.css"
           rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;1,900&display=swap" rel="stylesheet">
+
+
 
 
 </head>
 
 <style>
+.content-wrapper{ font-family:'Nunito', sans-serif;}
+
 .button {
+    border-radius:7px;
+    font-family:'Nunito', sans-serif;
     background-color: #8a6e91; /* Green */
     border: none;
     color: white;
@@ -78,6 +85,10 @@
 
 .button2:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+
+
 }
 </style>
 <body>
@@ -156,18 +167,24 @@
            height: auto;
          }
 
-         .left_1 {
-           height: auto;
-           margin:10px;
-           margin-left:60px;
-           margin-top::20px;
-         }
-         .right_1 {
-           margin:20px;
-           margin-left: 500px;
-           margin-top: 20
-           height: auto;
-         }
+        .mainDiv {
+            float: left;
+            margin-left: 20px;
+            width: 1500px;
+            margin-top: 5px;
+            height: 600px;
+            background-color: #FFEBCD;
+        
+        }
+        
+        .viceDiv_1,.viceDiv_2{
+            float: left;
+            background-color: #7FFFD4;
+            margin-top: 5px ;
+            margin-left: 20px;
+            width: 500px;
+            height: 500px;  
+        }
         </style>
 
         <div class="left">
@@ -175,7 +192,7 @@
         </div>
         <div class="right">
             <button onclick="show_similar('CNN_vis')" class="button button2">Vis CNN</button>
-            <button onclick="show_similar('RNN_vis')" class="button button2">Vis RNN</button></br>
+            <button onclick="show_similar('RNN_vis')" class="button button2">Vis RNN</button></br></br>
         
             <!--<front size ="3">{{text}}</front>-->
             <!--div id="bool" style="background-color:#2ab0b9;clear:both;text-align:center;"></div-->
@@ -214,9 +231,7 @@
         <front size = "10">The number of total used words is {{words_num}}, and the word category is {{words_cat}}; the tag category is {{tag_num}}.</front></br></br>
         <button onclick="show_pie('pie1')" class="button button2">Words distribution in similar cluster</button>
         <button onclick="show_pie('pie2')" class="button button2">Tag distribution of used words</button></br></br>
-        <div>
-            <div style='display:inline;'>
-                <div id="pie1" style='display:none'></div>
+                <div id="pie1" style='display:none;'></div>
                 <script type="module">
                 
                 // Load the Observable runtime and inspector.
@@ -230,15 +245,12 @@
                 // new Runtime().module(notebook, Inspector.into(document.body));
                 
                 new Runtime().module(notebook, name => {
-                  if (name === "chart") {
+                  if (name === "pie1_chart") {
                     return new Inspector(document.querySelector("#pie1"));
                   }
                 });
                 </script>
-            </div>
-
-            <div style='display:inline;'>
-                <div id="pie2" style='display:none'></div>
+                                <div id="pie2" style='display:none;'></div>
     
                 <script type="module">
                 
@@ -253,13 +265,13 @@
                 // new Runtime().module(notebook, Inspector.into(document.body));
                 
                 new Runtime().module(notebook, name => {
-                  if (name === "chart") {
+                  if (name === "pie2_chart") {
                     return new Inspector(document.querySelector("#pie2"));
                   }
                 });
                 </script>
-            </div>
-        </div>
+
+
 
         <div id="bool" style="background-color:#2ab0b9;clear:both;text-align:center;"></div>
         <!--div id='word_static' style='display:none'>
@@ -283,9 +295,10 @@
 <section id="section3" class="cd-section">
     <div class="content-wrapper">
         <h2>Analysis</h2>
-        <p>Tha statistics of all captions we generated on Fliker8k</p>
+        <p>Tha statistics of all captions we generated on Fliker8k</p></br>
         <button onclick="show_pie('bubble')" class="button button2">Captions' Length</button>
         <button onclick="show_pie('burst')" class="button button2">Words in Captions </button>
+        </br></br></br>
         <!-- draw bubble chart-->
 
         <style>
@@ -377,6 +390,7 @@
 <!-- Transform-->
 <section id="section4" class="cd-section">
     <div class="content-wrapper">
+        </br></br></br>
         <h2>Transform</h2>
         <p></p>    
         <!-- draw specil picture -->
@@ -400,7 +414,7 @@
             });
             </script>
 
-        </br></br></br>
+        </br></br>
         <button onclick="displayLoc()"class="button button 2">Shelter</button>
         <button onclick="update_img()"class="button button 2">Update</button>
         <button onclick="show_new_caption('generate')" class="button button2">Show caption</button></br></br></br>

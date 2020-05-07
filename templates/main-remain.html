@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+    
+<META HTTP-EQUIV="pragma" CONTENT="no-cache">
+
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+
+<META HTTP-EQUIV="expires" CONTENT="Wed, 26 Feb 1997 08:21:57 GMT">
+
+<META HTTP-EQUIV="expires" CONTENT="0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href='https://fonts.googleapis.com/css?family=Sintony:400,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="../static/css/reset.css"> <!-- CSS reset -->
+    <link rel="stylesheet" href="../static/css/style.css"> <!-- Resource style -->
+    <script src="../static/js/modernizr.js"></script> <!-- Modernizr -->
+    CapVis</title>
+    <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+
+    <script data-semver="1.6.4" src="http://code.angularjs.org/1.6.4/angular.js" data-require="angular.js@1.6.x">
+    </script>
+
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.8.1/css/tachyons.min.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.4.0/rzslider.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.4.0/rzslider.min.css"
+          rel="stylesheet">
+
+
+</head>
+
+<style>
+.button {
+    background-color: #8a6e91; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.word {
+    background-color: #47013c;
+
+    width: 100px;
+    height: 40px;
+    color: black;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: -3px;
+    font-style: arial;
+}
+.word1 {
+    background-color: #cc8baa;
+    width: 220px;
+    height: 70px;
+    color: black;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: -3px;
+    font-style: arial;
+}
+
+.button1 {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.button2:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+</style>
+<body>
+<nav class="cd-vertical-nav">
+    <ul>
+        <li><a href="#section1" class="active"><span class="label">Get Caption</span></a></li>
+        <li><a href="#section2"><span class="label">Internals</span></a></li>
+        <li><a href="#section3"><span class="label">Analysis</span></a></li>
+        <li><a href="#section4"><span class="label">Transform</span></a></li>
+        <!--li><a href="#section5"><span class="label">Contact</span></a></li-->
+    </ul>
+</nav><!-- .cd-vertical-nav -->
+
+<button class="cd-nav-trigger cd-image-replace">Open navigation<span aria-hidden="true"></span></button>
+
+<!--section id="section1" class="cd-section">
+    <div class="content-wrapper">
+        <h1>Welcom to CapVis<b>#1</b></h1>
+        <a href="#section2" class="cd-scroll-down cd-image-replace">scroll down</a>
+    </div>
+</section-->
+<!-- cd-section -->
+
+
+<section id="section1" class="cd-section">
+    <div class="content-wrapper">
+
+
+        <h2>Get Caption</h2>
+        <p></p>
+        <img src="{{ url_for('static', filename='./images/test.jpg',_t=val1)}}"  width="500" height="400" alt="image get lost TAT"/>
+        </br></br>
+        <front size ="3">{{text_clear}}</front></br></br>
+
+        <form action ='' method='post' enctype=multipart/form-data>
+            <div id="bool" style="background-color:#2ab0b9;clear:both;text-align:center;"></div></br>
+            <!--button type="submit" class="button button2">need similar image?</button-->
+            <!--div id="bool" style="background-color:#2ab0b9;clear:both;text-align:center;"></div-->
+            <form action="" method=post enctype=multipart/form-data>
+            <input class="button button2" type=file name=file>
+
+            <!-- beam size-->
+            <div class="button button2">
+            <input placeholder="Beamsize"id="beam" type="text" list="   beam_list" name=BEAM>
+            <datalist id="beam_list"></datalist>
+            </div>
+    
+
+            <input class="button button2" type=submit value=Resubmit formmethod=post ></br></br>
+            <button type="submit" class="button button2">good</button>
+            <button type="submit" class="button button2">bad</button> 
+            </br></br></br></br>
+        </form>
+
+</section><!-- cd-section -->
+
+<section id="section2" class="cd-section">
+    <div class="content-wrapper">
+        </br>
+        <h2>Internals</h2>
+        <p></p>
+        </br>
+        <style>
+         .left {
+           float: left;
+           width: 500px;
+           height: 600px;
+           margin:10px;
+           margin-left:60px;
+           margin-top::20px;
+         }
+         .right {
+           margin:20px;
+           margin-left: 500px;
+           margin-top: 20
+           height: auto;
+         }
+
+         .left_1 {
+           height: auto;
+           margin:10px;
+           margin-left:60px;
+           margin-top::20px;
+         }
+         .right_1 {
+           margin:20px;
+           margin-left: 500px;
+           margin-top: 20
+           height: auto;
+         }
+        </style>
+
+        <div class="left">
+            <img src="{{ url_for('static', filename='./images/test.jpg',_t=val1)}}"  width="500" height="500" alt="image get lost TAT"/>
+        </div>
+        <div class="right">
+            <button onclick="show_similar('CNN_vis')" class="button button2">Vis CNN</button>
+            <button onclick="show_similar('RNN_vis')" class="button button2">Vis RNN</button></br>
+        
+            <!--<front size ="3">{{text}}</front>-->
+            <!--div id="bool" style="background-color:#2ab0b9;clear:both;text-align:center;"></div-->
+            <div id="bool" style="background-color:#2ab0b9;text-align:center;"></div>
+            <div id="CNN_vis" style='display:none'>
+                <div id="imgbox"></div>
+            </div>
+
+            <div id="RNN_vis" style='display:none'>
+                <div id="attention1"></div>
+                <div id="attention2"></div>
+                <div>
+                    {% for i in range(length) %}
+                    <button class="word"><a href="www.google.com">{{text[i]}}</a></button>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div></div>
+            
+        <!--New Added by Dongzi-->
+        
+        <button stype="clear:both" onclick="show_similar('similar')" class="button button2">Show similar images</button>
+        <button onclick="show_caption('similar_cap')" class="button button2">Show corresponding caption</button></br>
+        <div id="bool" style="background-color:#2ab0b9;clear:both;text-align:center;"></div>
+
+        <!--New Added by Dongzi-->
+        <div id="similar"></div>
+        <div id='similar_cap' style='display:none'>
+            {% for item in cap_list %}
+            <textarea class="word1">{{item}}</textarea>
+            {% endfor %}
+        </div>
+        <br/>
+        <!--button onclick="show_words('word_static')" class="button button2">Show num distribution of used words</button-->
+        <front size = "10">The number of total used words is {{words_num}}, and the word category is {{words_cat}}; the tag category is {{tag_num}}.</front></br></br>
+        <button onclick="show_pie('pie1')" class="button button2">Words distribution in similar cluster</button>
+        <button onclick="show_pie('pie2')" class="button button2">Tag distribution of used words</button></br></br>
+        <div>
+            <div style='display:inline;width:600px;'>
+                <div id="pie1" style='display:none'></div>
+                <script type="module">
+                
+                // Load the Observable runtime and inspector.
+                import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+                
+                // Your notebook, compiled as an ES module.
+                import notebook from "https://api.observablehq.com/@yq605879396/pie-chart.js?v=3";
+                
+                // Load the notebook, observing its cells with a default Inspector
+                // that simply renders the value of each cell into the provided DOM node.
+                // new Runtime().module(notebook, Inspector.into(document.body));
+                
+                new Runtime().module(notebook, name => {
+                  if (name === "chart") {
+                    return new Inspector(document.querySelector("#pie1"));
+                  }
+                });
+                </script>
+            </div>
+
+            <div style='display:inline;width: 600px;'>
+                <div id="pie2" style='display:none'></div>
+    
+                <script type="module">
+                
+                // Load the Observable runtime and inspector.
+                import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+                
+                // Your notebook, compiled as an ES module.
+                import notebook from "https://api.observablehq.com/@yq605879396/pie-chart/2.js?v=3";
+                
+                // Load the notebook, observing its cells with a default Inspector
+                // that simply renders the value of each cell into the provided DOM node.
+                // new Runtime().module(notebook, Inspector.into(document.body));
+                
+                new Runtime().module(notebook, name => {
+                  if (name === "chart") {
+                    return new Inspector(document.querySelector("#pie2"));
+                  }
+                });
+                </script>
+            </div>
+        </div>
+
+        <div id="bool" style="background-color:#2ab0b9;clear:both;text-align:center;"></div>
+        <!--div id='word_static' style='display:none'>
+            <br/>
+            <front size = "10">The number of total used words is {{words_num}}, and the category is {{words_cat}}.</front>
+            <br/>
+            <front size = "3">{{cap_words}}</front>
+        </div-->
+        <!--div id='word_pie' style='display:none'>
+            <br/>
+            <front size = "10">The number of total used words is {{words_num}}, and the category is {{words_cat}}.</front>
+            <br/><br/>
+            <img src="/static/words/pie.jpg"  width="750" height="750" alt="image get lost TAT"/>
+        </div-->
+    </div>
+
+</section><!-- cd-section -->
+
+
+<!-- Analysis -->
+<section id="section3" class="cd-section">
+    <div class="content-wrapper">
+        <h2>Analysis</h2>
+        <p>Tha statistics of all captions we generated on Fliker8k</p>
+        <button onclick="show_pie('bubble')" class="button button2">Captions' Length</button>
+        <button onclick="show_pie('burst')" class="button button2">Words in Captions </button>
+        <!-- draw bubble chart-->
+
+        <style>
+        .tool-tip{
+          color:#330112;
+        position: absolute;   
+        padding: 8px;
+        margin-top: -20px;
+        font-size: 1em;
+        background: #ddd;
+        pointer-events: none;
+        
+        tool-tip span{
+         display:block;        
+
+        tool-tip mark{
+          font-weight:600;
+          margin-left: 0.2em;
+          background-color: transparent;
+          color: inherit !important;
+        
+        axis-label{
+         font-size: 1.2em;
+        
+        ircle{
+        &:hover {
+           -webkit-filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));      
+           filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));  
+
+        }
+
+        .burst_div{
+            width: 600;
+            height: 600;
+            float:left;
+            margin-left: 500px;
+         }
+        
+        </style>
+
+        <div id = "bubble" style='display:none'>
+            <div class= "tool-tip"></div>
+            <div id="bubble_chart"></div>
+                       <script type="module">
+                       
+                       // Load the Observable runtime and inspector.
+                       import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+                       
+                       // Your notebook, compiled as an ES module.
+                       import notebook from "https://api.observablehq.com/@yq605879396/artsed-bubble.js?v=3";
+                       
+                       // Load the notebook, observing its cells with a default Inspector
+                       // that simply renders the value of each cell into the provided DOM node.
+                       // new Runtime().module(notebook, Inspector.into(document.body));
+                       
+                       new Runtime().module(notebook, name => {
+                         if (name === "bubble_chart") {
+                           return new Inspector(document.querySelector("#bubble_chart"));
+                         }
+                       });
+                       </script>
+        </div>
+     <!-- draw burst -->
+            <div id = "burst"  style='display:none;width:700px;height:700px;' >          
+                <script type="module">
+                
+                // Load the Observable runtime and inspector.
+                import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+                
+                // Your notebook, compiled as an ES module.
+                import notebook from "https://api.observablehq.com/@yq605879396/zoomable-sunburst/2.js?v=3";
+                
+                // Load the notebook, observing its cells with a default Inspector
+                // that simply renders the value of each cell into the provided DOM node.
+                // new Runtime().module(notebook, Inspector.into(document.body));
+                
+                new Runtime().module(notebook, name => {
+                  if (name === "burst_chart") {
+                    return new Inspector(document.querySelector("#burst"));
+                  }
+                });
+                </script>
+            </div>
+   
+            
+    </div>
+
+</section><!-- cd-section -->
+
+
+<!-- Transform-->
+<section id="section4" class="cd-section">
+    <div class="content-wrapper">
+        <h2>Transform</h2>
+        <p></p>    
+        <!-- draw specil picture -->
+        <div id="chart1"></div>
+            <script type="module">
+            
+            // Load the Observable runtime and inspector.
+            import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+            
+            // Your notebook, compiled as an ES module.
+            import notebook from "https://api.observablehq.com/@yq605879396/mona-lisa-histogram/2.js?v=3";
+            
+            // Load the notebook, observing its cells with a default Inspector
+            // that simply renders the value of each cell into the provided DOM node.
+            // new Runtime().module(notebook, Inspector.into(document.body));
+            
+            new Runtime().module(notebook, name => {
+              if (name === "chart") {
+                return new Inspector(document.querySelector("#chart1"));
+              }
+            });
+            </script>
+
+        </br></br></br>
+        <button onclick="displayLoc()"class="button button 2">Shelter</button>
+        <button onclick="update_img()"class="button button 2">Update</button>
+        <button onclick="show_new_caption('generate')" class="button button2">Show caption</button></br></br></br>
+
+        <img src="{{ url_for('static', filename='./images/test.jpg',_t=val1)}}"  width="600" height="400" alt="image get lost TAT" id="new_img"/> <!--  width="600" height="400" -->
+            <br/>
+
+        <div id='generate' style='display:none'>                
+            <!--img src="{{ url_for('static', filename='./images/test.jpg',
+                _t=val1)}}"  width="600" height="400" alt="image get lost TAT"/-->
+            <br/>
+
+            <p id="new_caption">{{generated_seq}}</p>
+            <!--front size ="3">{{generated_seq}}</front></br></br-->
+        </div>  
+        </br>
+    </div>
+</section>
+
+
+
+
+
+
+
+<!-- feed back -->
+<section id="section5" class="cd-section">
+    <div class="content-wrapper">
+        <h2>Contact</h2>
+        <p> Thank you for your effort.</p>
+        <input type="txt"  rows="4" cols="60" placeholder="Please chime in here with your thoughts ^^/" name='username' style="height:38px;width:480px;">
+    </div>
+</section><!-- cd-section -->
+
+    
+<script src="../static/js/jquery-2.1.4.js"></script>
+<script src="../static/js/main.js"></script> <!-- Resource jQuery -->
+</body>
+</html>
+
+
+
+<!-- dongzi qu -->
+<script type="text/javascript">
+var html = "";
+var temp1 = "/static/features/";
+var temp2 = ".jpg";
+
+for (var i=1;i<3;i++){
+    for (var j=1;j<9;j++){
+        var temp3 = (i-1)*8 + j;
+        html+='<img src="'+temp1+temp3+temp2+'" width="80" height="80" alt="image get lost TAT"/>';
+        html += '<a>  </a>';
+    }
+    html += '<br/>';
+}
+
+document.getElementById("imgbox").innerHTML=html;
+</script>
+
+
+<script type="text/javascript">
+var html = "";
+var temp1 = "/static/attention/applied_";
+var temp4 = "/static/attention/origin_";
+var temp2 = ".jpg";
+
+var len = {{length}};
+//var width = window.screen.width;
+//var width_each = width/len;
+
+for (var i=0;i<len;i++){
+    var temp3 = i;
+    html += '<img src="'+temp4+temp3+temp2+'" width="100" alt="image get lost TAT"/>';
+    //html += '<font size ="3">' + 'hahaha' + '</font>';
+    //html += '<img src="'+temp1+temp3+temp2+'" width="300" alt="image get lost TAT"/>';
+    //html += '<br/>';
+}
+
+html += '<br/>';
+
+document.getElementById("attention1").innerHTML=html;
+</script>
+
+
+<script type="text/javascript">
+var html = "";
+var temp1 = "/static/attention/applied_";
+var temp4 = "/static/attention/origin_";
+var temp2 = ".jpg";
+    
+var len = {{length}};
+
+//var single_word = '{{ text[0] }}';
+//html += '<font size="3">' + single_word + '</font>';
+//var all_word = '{{text}}';
+//html += '<font size="3">' + len + '</font>';
+//html += '</br>';
+/*
+for (var i=0;i<len;i++){
+    //var single_word = all_word[i];
+    var single_word = '{{ text['+i+'] }}';
+    html += '<font size="3">' + single_word + '</font>';
+}
+html += '<br/>';
+*/
+
+for (var i=0;i<len;i++){
+    var temp3 = i;
+    //html += '<img src="'+temp4+temp3+temp2+'" width="300" alt="image get lost TAT"/>';
+    //html += '<font size ="3">' + 'hahaha' + '</font>';
+    html += '<img src="'+temp1+temp3+temp2+'" width="100" alt="image get lost TAT"/>';
+    //html += '<br/>';
+}
+html += '<br/>';
+
+document.getElementById("attention2").innerHTML=html;
+</script>
+
+
+<script type="text/javascript">
+var html = "";
+var temp1 = "/static/images/";
+var temp2 = ".jpg"
+
+for (var i=0;i<5;i++){
+    html += '<img src="' + temp1+i+temp2+'" width="220" height="220" alt="image get lost TAT"/>';
+    html += '<a>  </a>';
+}
+html += '<br/>';
+
+document.getElementById("similar").innerHTML=html;
+document.getElementById("similar").style.display = 'none';
+</script>
+
+
+<script type="text/javascript">
+
+
+function update_img(){
+    $('#new_img').hide().attr('src', "http://127.0.0.1:5000/photo/generated_test.jpg"+"?t="+Math.random());
+    $('#new_img').show()
+
+    var htmlobj=$.ajax({url:"http://127.0.0.1:5000/photo/caption",async:false});
+    //var htmlobj=$.ajax({"../text/new_caption.txt",async:false});
+    document.getElementById('new_caption').innerText = htmlobj.responseText;
+    //document.getElementById('new_img').src="{{ url_for('static', filename='./images/generated_test.jpg',_t=val1)}}"+"?rand=h9xqeI";
+    //$("#new_img").attr('src', src="{{ url_for('static', filename='./images/test.jpg',_t=val1)}}"+"?t=" + Math.random());
+}
+
+function show_similar(id){
+    if (document.getElementById(id).style.display == 'none') {
+        document.getElementById(id).style.display = 'block';
+    }
+    else if (document.getElementById(id).style.display == 'block') {
+        document.getElementById(id).style.display = 'none';
+    }
+}
+function show_caption(id){
+    if (document.getElementById(id).style.display == 'none') {
+        document.getElementById(id).style.display = 'block';
+    }
+    else if (document.getElementById(id).style.display == 'block') {
+        document.getElementById(id).style.display = 'none';
+    }
+}
+function show_words(id){
+    if (document.getElementById(id).style.display == 'none') {
+        document.getElementById(id).style.display = 'block';
+    }
+    else if (document.getElementById(id).style.display == 'block') {
+        document.getElementById(id).style.display = 'none';
+    }
+}
+function show_pie(id){
+    if (document.getElementById(id).style.display == 'none') {
+        document.getElementById(id).style.display = 'block';
+    }
+    else if (document.getElementById(id).style.display == 'block') {
+        document.getElementById(id).style.display = 'none';
+    }
+}
+
+
+
+
+function show_new_caption(id){
+    //var ForReading=1; 
+    //var fso=new ActiveXObject("Scripting.FileSystemObject"); 
+    //var openf1 = fso.OpenTextFile("./static/images/new_caption.txt");
+    //var str2 = openf1.ReadAll();
+
+    if (document.getElementById(id).style.display == 'none') {
+        document.getElementById(id).style.display = 'block';
+
+    }
+    else if (document.getElementById(id).style.display == 'block') {
+        document.getElementById(id).style.display = 'none';
+    }
+}
+
+
+//added for twist
+function displayLoc()
+{
+  var elements = document.getElementById("chart1");
+  var elems = elements.getElementsByClassName("selection");
+  var target_rect = elements.getElementsByTagName("rect");
+  
+  //console.log(target_rect);
+  console.log(target_rect[1].getAttribute("x"));
+  //console.log(target_rect[2].getAttribute("x"));
+  //console.log(target_rect[3].getAttribute("x"));
+  console.log(target_rect[1].getAttribute("y"));
+  //console.log(target_rect[2].getAttribute("y"));
+  //console.log(target_rect[3].getAttribute("y"));
+  console.log(target_rect[1].getAttribute("width"));
+  //console.log(target_rect[2].getAttribute("width"));
+  //console.log(target_rect[3].getAttribute("width"));
+  console.log(target_rect[1].getAttribute("height"));
+  //console.log(target_rect[2].getAttribute("height"));
+  //console.log(target_rect[3].getAttribute("height"));
+  var target_canvas = elements.getElementsByTagName("canvas")
+  //console.log(target_canvas);
+  console.log(target_canvas[0].getAttribute("width"));
+  console.log(target_canvas[0].getAttribute("height"));
+  //console.log(target_rect[1].getAttribute("width"));
+  //console.log(target_rect[1].getAttribute("height"));
+
+  var params={};
+    params.x=target_rect[1].getAttribute("x");
+    params.y=target_rect[1].getAttribute("y");
+    params.width=target_rect[1].getAttribute("width");
+    params.height=target_rect[1].getAttribute("height");
+    params.canvas_w =target_canvas[0].getAttribute("width")
+    params.canvas_h =target_canvas[0].getAttribute("height")
+    //alert(params);
+
+  var targetUrl = "http://127.0.0.1:5000/home";
+  //alert(targetUrl);
+  $.ajax({
+      type:'GET',
+      url:targetUrl,
+      data:params,
+      datatype:'args',               //同步调用，保证先执行result=true,后再执行return result;
+      success:function(data){
+        if(data.result=='SUCCESS'){
+          //window.location.href="http://127.0.0.1:5000/home/";
+          //弹出登录成功！
+          //alert("yeah!!");
+        }else{
+          //alert("no!!");
+        }
+      }
+    });
+  
+  
+
+}
+</script>
+
+
+
+
+<!-- draw on monalisa -->
+<!--style>
+         .left {
+           float: left;
+           width: 500px;
+           height: 600px;
+           margin:10px;
+           margin-left:60px;
+           margin-top::20px;
+         }
+         .right {
+           margin:20px;
+           margin-left: 500px;
+           margin-top: 20
+           height: auto;
+         }
+         .space{
+
+         }
+        </style>
+
+<div class="content-wrapper">        
+    <div id ="lisa" type:right></div>
+    <div id ="lisa2" class:left></div>
+    <script type="module">
+    import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+    import define from "https://api.observablehq.com/@yq605879396/input-draw-a-box-on-image/3.js?v=3";
+    import notebook from "https://api.observablehq.com/@yq605879396/input-draw-a-box-on-image/3.js?v=3";
+    //const inspect = Inspector.into("#observablehq-78e687e1");
+    ////(new Runtime).module(define, name => (name === "viewof a") && inspect() );
+    //new Runtime().module(notebook, name => {
+    //  return {
+    //    pending() { console.log(`${name} is running…`); },
+    //    fulfilled(value) { console.log(name, value); },
+    //    rejected(error) { console.error(error); }
+    //  };
+    //});
+    new Runtime().module(notebook, name => {
+      switch (name) {
+        case "a": return new Inspector(document.querySelector("#lisa"));
+        case "viewof a": return new Inspector(document.querySelector("#lisa2"));
+      }
+    });
+    
+    
+    
+    </script>
+    <button type="submit" class="button button2">good</button>
+    <button type="submit" class="button button2">bad</button> 
+</div-->
