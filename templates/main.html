@@ -129,6 +129,7 @@
             <input class="button button2" type=submit value=Resubmit formmethod=post ></br></br>
             <button type="submit" class="button button2">good</button>
             <button type="submit" class="button button2">bad</button> 
+            </br></br></br></br>
         </form>
 
 </section><!-- cd-section -->
@@ -154,8 +155,18 @@
            margin-top: 20
            height: auto;
          }
-         .space{
 
+         .left_1 {
+           height: auto;
+           margin:10px;
+           margin-left:60px;
+           margin-top::20px;
+         }
+         .right_1 {
+           margin:20px;
+           margin-left: 500px;
+           margin-top: 20
+           height: auto;
          }
         </style>
 
@@ -199,21 +210,70 @@
             {% endfor %}
         </div>
         <br/>
-        <button onclick="show_words('word_static')" class="button button2">Show num distribution of used words</button>
-        <button onclick="show_pie('word_pie')" class="button button2">Show pie distribution of used words</button>
+        <!--button onclick="show_words('word_static')" class="button button2">Show num distribution of used words</button-->
+        <front size = "10">The number of total used words is {{words_num}}, and the word category is {{words_cat}}; the tag category is {{tag_num}}.</front></br></br>
+        <button onclick="show_pie('pie1')" class="button button2">Words distribution in similar cluster</button>
+        <button onclick="show_pie('pie2')" class="button button2">Tag distribution of used words</button></br></br>
+        <div>
+            <div style='display:inline;'>
+                <div id="pie1" style='display:none'></div>
+                <script type="module">
+                
+                // Load the Observable runtime and inspector.
+                import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+                
+                // Your notebook, compiled as an ES module.
+                import notebook from "https://api.observablehq.com/@yq605879396/pie-chart.js?v=3";
+                
+                // Load the notebook, observing its cells with a default Inspector
+                // that simply renders the value of each cell into the provided DOM node.
+                // new Runtime().module(notebook, Inspector.into(document.body));
+                
+                new Runtime().module(notebook, name => {
+                  if (name === "chart") {
+                    return new Inspector(document.querySelector("#pie1"));
+                  }
+                });
+                </script>
+            </div>
+
+            <div style='display:inline;'>
+                <div id="pie2" style='display:none'></div>
+    
+                <script type="module">
+                
+                // Load the Observable runtime and inspector.
+                import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+                
+                // Your notebook, compiled as an ES module.
+                import notebook from "https://api.observablehq.com/@yq605879396/pie-chart/2.js?v=3";
+                
+                // Load the notebook, observing its cells with a default Inspector
+                // that simply renders the value of each cell into the provided DOM node.
+                // new Runtime().module(notebook, Inspector.into(document.body));
+                
+                new Runtime().module(notebook, name => {
+                  if (name === "chart") {
+                    return new Inspector(document.querySelector("#pie2"));
+                  }
+                });
+                </script>
+            </div>
+        </div>
+
         <div id="bool" style="background-color:#2ab0b9;clear:both;text-align:center;"></div>
-        <div id='word_static' style='display:none'>
+        <!--div id='word_static' style='display:none'>
             <br/>
             <front size = "10">The number of total used words is {{words_num}}, and the category is {{words_cat}}.</front>
             <br/>
             <front size = "3">{{cap_words}}</front>
-        </div>
-        <div id='word_pie' style='display:none'>
+        </div-->
+        <!--div id='word_pie' style='display:none'>
             <br/>
             <front size = "10">The number of total used words is {{words_num}}, and the category is {{words_cat}}.</front>
             <br/><br/>
             <img src="/static/words/pie.jpg"  width="750" height="750" alt="image get lost TAT"/>
-        </div>
+        </div-->
     </div>
 
 </section><!-- cd-section -->
@@ -223,13 +283,92 @@
 <section id="section3" class="cd-section">
     <div class="content-wrapper">
         <h2>Analysis</h2>
-        <p>??? some analysisi</p>
-            <!-- draw char -- word freqency -->
-        <div id="words_f">
-            <script src="https://d3js.org/d3.v4.min.js"></script>
-            <script src="../static/js/word_frequency.js"></script> 
+        <p>Tha statistics of all captions we generated on Fliker8k</p>
+        <button onclick="show_pie('bubble')" class="button button2">Captions' Length</button>
+        <button onclick="show_pie('burst')" class="button button2">Words in Captions </button>
+        <!-- draw bubble chart-->
+
+        <style>
+        .tool-tip{
+          color:#330112;
+        position: absolute;   
+        padding: 8px;
+        margin-top: -20px;
+        font-size: 1em;
+        background: #ddd;
+        pointer-events: none;
+        
+        tool-tip span{
+         display:block;        
+
+        tool-tip mark{
+          font-weight:600;
+          margin-left: 0.2em;
+          background-color: transparent;
+          color: inherit !important;
+        
+        axis-label{
+         font-size: 1.2em;
+        
+        ircle{
+        &:hover {
+           -webkit-filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));      
+           filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));  
+
+        }
+
+        .burst_div{
+            float:center;
+         }
+        
+        </style>
+
+        <div id = "bubble" style='display:none'>
+            <div class= "tool-tip"></div>
+            <div id="bubble_chart"></div>
+                       <script type="module">
+                       
+                       // Load the Observable runtime and inspector.
+                       import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+                       
+                       // Your notebook, compiled as an ES module.
+                       import notebook from "https://api.observablehq.com/@yq605879396/artsed-bubble.js?v=3";
+                       
+                       // Load the notebook, observing its cells with a default Inspector
+                       // that simply renders the value of each cell into the provided DOM node.
+                       // new Runtime().module(notebook, Inspector.into(document.body));
+                       
+                       new Runtime().module(notebook, name => {
+                         if (name === "bubble_chart") {
+                           return new Inspector(document.querySelector("#bubble_chart"));
+                         }
+                       });
+                       </script>
         </div>
-          <!-- draw specil picture -->  
+
+        <div class = 'burst_div'>        <!-- draw burst -->
+            <div class = 'burst_div' id = "burst"  style='display:none;width:650px;height:650px; MARGIN-RIGHT:auto; MARGIN-LEFT:auto' >          
+                <script type="module">
+                
+                // Load the Observable runtime and inspector.
+                import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+                
+                // Your notebook, compiled as an ES module.
+                import notebook from "https://api.observablehq.com/@yq605879396/zoomable-sunburst/2.js?v=3";
+                
+                // Load the notebook, observing its cells with a default Inspector
+                // that simply renders the value of each cell into the provided DOM node.
+                // new Runtime().module(notebook, Inspector.into(document.body));
+                
+                new Runtime().module(notebook, name => {
+                  if (name === "burst_chart") {
+                    return new Inspector(document.querySelector("#burst"));
+                  }
+                });
+                </script>
+            </div>
+        </div> 
+            
     </div>
 
 </section><!-- cd-section -->
