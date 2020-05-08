@@ -3,87 +3,53 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
-	<link href='https://fonts.googleapis.com/css?family=Sintony:400,700' rel='stylesheet' type='text/css'>
 
+  <!--front style -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;1,900&display=swap" rel="stylesheet">
+  <!-- custom style -->
 	<link rel="stylesheet" href="../static/css/reset.css"> <!-- CSS reset -->
-	<link rel="stylesheet" href="../static/css/style.css"> <!-- Resource style -->
-	<script src="../static/js/modernizr.js"></script> <!-- Modernizr -->
-  	CapVis</title>
-  	<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
-
-    <script data-semver="1.6.4" src="http://code.angularjs.org/1.6.4/angular.js" data-require="angular.js@1.6.x">
-    </script>
-
-    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.8.1/css/tachyons.min.css"/>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.4.0/rzslider.min.js"></script>
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.4.0/rzslider.min.css"
-          rel="stylesheet">
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
-        <!-- ziti -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;1,900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="../static/css/style.css"> <!-- Resource style: body, html, navi -->
+  <link rel="stylesheet" href="../static/css/main.css"> <!-- some style for this page -->
 
 
+  <!--script data-semver="1.6.4" src="http://code.angularjs.org/1.6.4/angular.js" data-require="angular.js@1.6.x"></script-->
+  <script src="../static/js/modernizr.js"></script> <!-- Modernizr -->
+  <title>CapVis</title>
+  
 </head>
 
-<style>
-.content-wrapper{ font-family:'Nunito', sans-serif;}
-.button {
-    border-radius:7px;
-    font-family:'Nunito', sans-serif;
-    background-color: #8a6e91; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-}
-
-.button1 {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-}
-
-.button2:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-}
-</style>
-
-
 <body>
+
+<!-- nav -->
 <nav class="cd-vertical-nav">
 	<ul>
 		<li><a href="#section1" class="active"><span class="label">Start</span></a></li>
 		<li><a href="#section2"><span class="label">Uplad</span></a></li>
-		<!--li><a href="#section3"><span class="label">target_rect</span></a></li-->
 		<li><a href="#section3"><span class="label">FeedBack</span></a></li>
-		<!--li><a href="#section5"><span class="label">Contact</span></a></li-->
 	</ul>
-</nav><!-- .cd-vertical-nav -->
+</nav>
 
 <button class="cd-nav-trigger cd-image-replace">Open navigation<span aria-hidden="true"></span></button>
 
+
+<!-- Welcome -->
 <section id="section1" class="cd-section">
 	<div class="content-wrapper">
 		<h1>Welcome to CapVis</h1>
 		<a href="#section2" class="cd-scroll-down cd-image-replace">scroll down</a>
 	</div>
-</section><!-- cd-section -->
+</section>
 
+
+<!-- Upload image -->
 <section id="section2" class="cd-section">
 	<div class="content-wrapper">
     </br></br>
 		<h2>Pick an Image</h2>
 		<p>Please upload an image.</p></br></br></br>
+
     <form action="" method=post enctype=multipart/form-data>
         <input class="button button2" type=file name=file>
-    
     
         <div class="button button2">
         <input placeholder="Beamsize"id="beam" type="text" list="   beam_list" name=BEAM>
@@ -92,12 +58,6 @@
     
         <input class="button button2" type=submit value=Upload></br></br>   
     </form>
-    <!-- draw word cloud -->
-    <!--div id="word_cloud">
-        <script src="https://d3js.org/d3.v3.min.js"></script>
-        <script src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js"></script>
-        <script src="../static/js/cloud.js"></script> 
-    </div-->
 
     <!-- draw word cloud -->
     <div id="observablehq-174c04f0"></div>
@@ -107,10 +67,8 @@
         const inspect = Inspector.into("#observablehq-174c04f0");
         (new Runtime).module(define, name => (name === "result") && inspect());
         </script>
-	</div>
-
-</section><!-- cd-section -->
-
+	 </div>
+</section>
 
 
 <!-- feed back -->
@@ -119,93 +77,8 @@
 		<h2>Contact</h2>
 		<p> Thank you for your effort.</p>
 		<input type="txt"  rows="4" cols="60" placeholder="Please chime in here with your thoughts ^^/" name='username' style="height:38px;width:480px;">       
-
-
     </div>
-
-
-</section><!-- cd-section -->
-
-	
-<script src="../static/js/jquery-2.1.4.js"></script>
-<script src="../static/js/main.js"></script> <!-- Resource jQuery -->
-
-
-
+</section>
 
 </body>
-
-
 </html>
-
-<!-- Qi Yin added -->
-<!--script type="text/javascript">
-function show_new_caption(id){
-    if (document.getElementById(id).style.display == 'none') {
-        document.getElementById(id).style.display = 'block';
-    }
-    else if (document.getElementById(id).style.display == 'block') {
-        document.getElementById(id).style.display = 'none';
-    }
-}
-
-
-
-function displayLoc()
-{
-  var elements = document.getElementById("chart1");
-  var elems = elements.getElementsByClassName("selection");
-  var target_rect = elements.getElementsByTagName("rect");
-  
-  //console.log(target_rect);
-  console.log(target_rect[1].getAttribute("x"));
-  //console.log(target_rect[2].getAttribute("x"));
-  //console.log(target_rect[3].getAttribute("x"));
-  console.log(target_rect[1].getAttribute("y"));
-  //console.log(target_rect[2].getAttribute("y"));
-  //console.log(target_rect[3].getAttribute("y"));
-  console.log(target_rect[1].getAttribute("width"));
-  //console.log(target_rect[2].getAttribute("width"));
-  //console.log(target_rect[3].getAttribute("width"));
-  console.log(target_rect[1].getAttribute("height"));
-  //console.log(target_rect[2].getAttribute("height"));
-  //console.log(target_rect[3].getAttribute("height"));
-  var target_canvas = elements.getElementsByTagName("canvas")
-  //console.log(target_canvas);
-  console.log(target_canvas[0].getAttribute("width"));
-  console.log(target_canvas[0].getAttribute("height"));
-  //console.log(target_rect[1].getAttribute("width"));
-  //console.log(target_rect[1].getAttribute("height"));
-
-  var params={};
-    params.x=target_rect[1].getAttribute("x");
-    params.y=target_rect[1].getAttribute("y");
-    params.width=target_rect[1].getAttribute("width");
-    params.height=target_rect[1].getAttribute("height");
-    params.canvas_w =target_canvas[0].getAttribute("width")
-    params.canvas_h =target_canvas[0].getAttribute("height")
-    //alert(params);
-
-  var targetUrl = "http://127.0.0.1:5000/home";
-  alert(targetUrl);
-  $.ajax({
-      type:'GET',
-      url:targetUrl,
-      data:params,
-      datatype:'args',               //同步调用，保证先执行result=true,后再执行return result;
-      success:function(data){
-        if(data.result=='SUCCESS'){
-          //window.location.href="http://127.0.0.1:5000/home/";
-          //弹出登录成功！
-          alert("yeah!!");
-        }else{
-          alert("no!!");
-        }
-      }
-    });
-
-}
-
-
-
-</script-->

@@ -235,7 +235,7 @@ def visualize_att(image_path, seq, alphas, rev_word_map, smooth=True):
     plt.show()
 
 
-def test_photo(img, model='pretrained/BEST_checkpoint_coco_5_cap_per_img_5_min_word_freq.pth.tar', word_map ='pretrained/WORDMAP_coco_5_cap_per_img_5_min_word_freq.json', beam_size = 5):
+def test_photo(img, model='pretrained/BEST_checkpoint_flickr30k_5_cap_per_img_5_min_word_freq.pth.tar', word_map ='pretrained/WORDMAP_flickr30k_5_cap_per_img_5_min_word_freq.json', beam_size = 5):
     #parser = argparse.ArgumentParser(description='Show, Attend, and Tell - Tutorial - Generate Caption')
     #parser.add_argument('--img', '-i', help='path to image')
     #parser.add_argument('--model', '-m', help='path to model')
@@ -316,7 +316,7 @@ def test_photo(img, model='pretrained/BEST_checkpoint_coco_5_cap_per_img_5_min_w
     return sentence, sentence_clear
 
 
-def test_photo_easy(img, model='pretrained/BEST_checkpoint_coco_5_cap_per_img_5_min_word_freq.pth.tar', word_map ='pretrained/WORDMAP_coco_5_cap_per_img_5_min_word_freq.json', beam_size = 5):
+def test_photo_easy(img, model='pretrained/BEST_checkpoint_flickr30k_5_cap_per_img_5_min_word_freq.pth.tar', word_map ='pretrained/WORDMAP_flickr30k_5_cap_per_img_5_min_word_freq.json', beam_size = 5):
 
     # Load model
     checkpoint = torch.load(model, map_location=str(device))
