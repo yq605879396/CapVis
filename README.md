@@ -18,11 +18,11 @@ python3,  nltk, numpy, pytorch, flask
 After clone this project, please download the pretrained file and put in "CapVis/pretrained" respository:
 
 CapVis/pretrained ____  Flickr_Data<br>
-		   						|__  BEST_checkpoint_flickr30k_5_cap_per_img_5_min_word_freq.pth.tar<br>
-		   						|__  WORDMAP_flickr30k_5_cap_per_img_5_min_word_freq.json<br>
-		   						|__  All_vectors<br>
-		  						 |__  center_100<br>
-		   						|__  ...<br><br>
+&emsp	&emsp	&emsp &emsp |__  BEST_checkpoint_flickr30k_5_cap_per_img_5_min_word_freq.pth.tar<br>
+&emsp	&emsp	&emsp &emsp |__  WORDMAP_flickr30k_5_cap_per_img_5_min_word_freq.json<br>
+&emsp	&emsp	&emsp &emsp |__  All_vectors<br>
+&emsp	&emsp	&emsp &emsp |__  center_100<br>
+&emsp	&emsp	&emsp &emsp |__  ...<br><br>
 File link:
 
 1. Pretrained computation model:<br>
