@@ -9,11 +9,11 @@ Little bugs：
 
 
 # How to use it
-#### Requirements: 
+### Requirements: 
 
 python3,  nltk, numpy, pytorch, flask
 
-#### Files need to Download：
+### Files need to Download：
 
 After clone this project, please download the pretrained file and put in "CapVis/pretrained" respository:
 
@@ -36,24 +36,24 @@ Trained with COCO: "https://drive.google.com/drive/folders/189VY65I_n4RTpQnmLGj7
 
 
 
-#### There are three ways to use it 
+### There are three ways to use it Website
 
-##### Visualization (main part)
+### 1. Visualization On Website (main part)
 python App.py
 Then open "http://127.0.0.1:5000/home/" in Chrome
 please upload an image from image test or you can whatever image but generate a vector for it before upload it, for details see:
 ?????
 
-##### Test a photo and plot the image
+### 2. Test a photo and plot the image
 python caption.py --model='pretrained/BEST_checkpoint_flickr30k_5_cap_per_img_5_min_word_freq.pth.tar' --word_map='pretrained/WORDMAP_flickr30k_5_cap_per_img_5_min_word_freq.json' --beam_size=5 --img='image_for_test/test7.jpg'
 
 
 
-##### Simply print the caption out in console
+### 3. Simply print the caption out in console
 python get_cap.py --model='pretrained/BEST_checkpoint_flickr30k_5_cap_per_img_5_min_word_freq.pth.tar' --word_map='pretrained/WORDMAP_flickr30k_5_cap_per_img_5_min_word_freq.json' --beam_size=5 --img='image_for_test/test4.jpg'
 
 # Related resource 
-#### observable used：
+### Observable D3 used：
 
 Static data already upload：
 
@@ -68,10 +68,10 @@ https://observablehq.com/@yq605879396/mona-lisa-histogram/2
 
 
 # Referring
-#### Computation Module:
+### Computation Module:
 https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning 
 This is an outstanding implementation of "show, attend and tell" in pytorch version
 
-#### HTML template
+### HTML template
 https://codyhouse.co/gem/vertical-fixed-navigation-2/ 
 we rewrite our website base on this frame
