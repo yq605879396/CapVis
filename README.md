@@ -1,5 +1,9 @@
 # CapVis
-This project is a Visualization System for Image Captioning, which is designed by Qi Yin [email](qy652@nyu.edu) and Dongzi Qu [email](dq394@nyu.edu) from NYU Tandon School of Engineering. Our instructor is Professor Silva from the ```CS-GY 9223 I --- Visualization with Machine Learning``` during the 2020 Spring Semester.
+## outline
+* Name: Visualization System for Image Captioning (Course Project)
+* Contributors: [Qi Yin](qy652@nyu.edu), [Dongzi Qu](dq394@nyu.edu)
+* Instructors: [Claudio Silva](csilva@nyu.edu), [Jorge Piazentin Ono](jpo286@nyu.edu), [Yeuk Yin Chan](gromit.chan@nyu.edu)
+* Institute: NYU Tandon School of Engineering (Dept: Computer Science)
 
 # Notice：
 Little bugs：
