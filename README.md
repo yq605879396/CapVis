@@ -39,7 +39,7 @@ Trained with COCO: "https://drive.google.com/drive/folders/189VY65I_n4RTpQnmLGj7
 
 
 
-### There are three ways to use it Website
+### There are three ways to use it
 
 ### 1. Visualization On Website (main part)
 python App.py
