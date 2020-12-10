@@ -1,5 +1,5 @@
 # CapVis
-## outline
+## Outline
 * Name: Visualization System for Image Captioning (Course Project)
 * Contributors: [Qi Yin](qy652@nyu.edu), [Dongzi Qu](dq394@nyu.edu)
 * Instructors: [Claudio Silva](csilva@nyu.edu), [Jorge Piazentin Ono](jpo286@nyu.edu), [Yeuk Yin Chan](gromit.chan@nyu.edu)
@@ -44,8 +44,7 @@ Trained with COCO: "https://drive.google.com/drive/folders/189VY65I_n4RTpQnmLGj7
 ### 1. Visualization On Website (main part)
 python App.py
 Then open "http://127.0.0.1:5000/home/" in Chrome
-please upload an image from image test or you can whatever image but generate a vector for it before upload it, for details see:
-?????
+please upload an image from image test or you can whatever image but generate a vector for it before upload it. 
 
 ### 2. Test a photo and plot the image
 python caption.py --model='pretrained/BEST_checkpoint_flickr30k_5_cap_per_img_5_min_word_freq.pth.tar' --word_map='pretrained/WORDMAP_flickr30k_5_cap_per_img_5_min_word_freq.json' --beam_size=5 --img='image_for_test/test7.jpg'
